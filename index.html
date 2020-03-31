@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test</title>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+</head>
+<body>
+<script>
+    $(function () {
+        $.ajax({
+            url : '//local3.com/call.php',
+            data : 'a',
+            dataType : 'text',
+            success : function (data) {
+                $('body').text(data);
+            }
+        });
+    })
+</script>
+</body>
+</html>
