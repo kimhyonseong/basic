@@ -1,44 +1,104 @@
 <?php
-    /**
-     * Created by PhpStorm.
-     * User: KimHyonSeong
-     * Date: 2020-03-29
-     * Time: 오후 5:41
-     */
-    ?>
+//$_SERVER['DOCUMENT_ROOT'] = htdocs3/admin
+include_once $_SERVER['DOCUMENT_ROOT'].'/config.php';
+include_once $_SERVER['DOCUMENT_ROOT'].'/lib/db.php';
+?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>Test</title>
-    <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <title>Admin_index</title>
+    <style>
+        * {padding: 0; margin:0}
+        #wrap {
+            width:1200px;
+            margin: 15vh auto;
+            height: 100%;}
+
+        .login
+        {
+            width: 500px;
+            height: 400px;
+            margin: auto;
+            text-align: center;
+        }
+        .login_text
+        {
+            width: 250px;
+            height: 30px;
+            margin: 15px;
+            border: none;
+            border-bottom: #dcdcdc 2px solid;
+            font-size: 20px;
+            padding: 5px;
+            background-color: transparent;
+        }
+        .login_text:focus
+        {
+            border-bottom: pink 2px solid;
+            outline: none;
+        }
+        .index_submit
+        {
+            width: 120px;
+            height: 50px;
+            margin: 30px 10px 10px 10px;
+            border-radius: 10px;
+            border: none;
+            font-size: 20px;
+            background-color: #585858;
+            color: white;
+            transition: background-color .3s;
+        }
+        .index_submit:hover {background-color: pink;}
+        body {background-color: #F6F6F6;}
+        h1 {color: #585858;}
+
+        a {text-decoration: none;}
+
+        /*반응형할땐 스크롤바가 없어야한다 따라서 크기를 좀 크게*/
+        @media (max-width: 1220px) {
+            #wrap {width: 95%}
+            .login
+            {
+                width: 500px;
+                height: 400px;
+                margin: auto;
+                text-align: center;
+            }
+            .login_text
+            {
+                width: 200px;
+                font-size: 15px;
+            }
+
+            .index_submit
+            {
+                width: 100px;
+                height: 40px;
+                font-size: 15px;
+            }
+
+            h1 {font-size: x-large;}
+        }
+
+    </style>
 </head>
 <body>
-<script>
-    $(function () {
-        $('#file_load').on('dragover',function (e) {
-            e.stopPropagation();
-            e.preventDefault();
-            $(this).css('background','#E3aaaa');
-        }).on('dragleave',function (e) {
-            e.stopPropagation();
-            e.preventDefault();
-            $(this).css('background','#FFFFFF');
-        }).on('drop',function (e) {
-            e.preventDefault();
-            $(this).css('background','#FFFFFF');
 
-            //여기서 함수
-        })
-    })
-</script>
-<form action="process/upload.php">
-    <input type="text" name="file_nm" placeholder="파일이름">
-    <input type="text" name="file_desc" placeholder="파일설명">
-    <input type="file" name="file">
-    <div id="file_load" style="border: 1px solid mistyrose; width: 300px; height: 200px; margin-top: 10px;">
-
+<div id="wrap">
+    <div class="login">
+        <a href="<?=LOCAL?>">
+            <h1>Test World<br>
+                Admin page</h1>
+        </a>
+        <form method="post">
+            <input class="login_text" type="text" placeholder="ID" name="id" autocomplete="off"><br>
+            <input class="login_text" type="password" placeholder="password" name="pw"><br>
+            <input class="index_submit" type="submit" formaction="member/login.php" value="Log in">
+            <input class="index_submit" type="submit" value="Join" formaction="join_form.php" >
+        </form>
     </div>
-</form>
+</div>
 </body>
 </html>
