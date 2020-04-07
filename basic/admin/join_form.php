@@ -92,6 +92,30 @@ include_once $_SERVER['DOCUMENT_ROOT'].'/lib/db.php';
                     pw.attr('type','password');
                 }
             });
+            
+            $('#check').on('click',function () {
+                if ($('#id').val().length > 10) {
+                    alert('최대 10자입니다.');
+                    return false;
+                } else {
+                    $.ajax({
+                        type: 'POST',
+                        url: '<?=LOCAL?>/proc/signup.php',
+                        data: {id: $('#id').val(), mode: 'check'},
+                        dataType: 'html',
+                        success: function (data) {
+                            if (data == 1) {
+                                alert('중복된 아이디입니다.');
+                            } else {
+                                alert('사용 가능합니다.');
+                            }
+                        },
+                        error: function () {
+                            alert('서버 환경이 원활하지 않습니다.\n관리자에게 문의해주세요.');
+                        }
+                    })
+                }
+            });
 
             $('#form').on('submit',function () {
                 if ($('#id').val().length <= 3) {
@@ -125,13 +149,13 @@ include_once $_SERVER['DOCUMENT_ROOT'].'/lib/db.php';
         </a>
         <form id="form" method="post" action="<?=LOCAL?>/proc/signup.php">
             <label for="id">아이디</label>
-            <input class="login_text" type="text" placeholder="ID" name="id" id="id" autocomplete="off"><br>
+            <input class="login_text" type="text" placeholder="ID" name="id" id="id" autocomplete="off"><span id="check">o</span><br>
             <label for="pw">비밀번호</label>
             <input class="login_text" type="password" placeholder="password" name="pw" id="pw"><span id="show">o</span><br>
             <label for="name">이름</label>
-            <input class="login_text" type="text" placeholder="name" name="name" id="name"><br>
+            <input class="login_text" type="text" placeholder="name" name="name" id="name" autocomplete="off"><br>
             <label for="birth">생년월일</label>
-            <input class="login_text" type="text" placeholder="birth" name="birth" id="birth"><br>
+            <input class="login_text" type="text" placeholder="birth" name="birth" id="birth" autocomplete="off"><br>
 <!--            <input class="index_submit" type="submit" formaction="member/login.php" value="Log in">-->
 <!--            <input class="index_submit" type="submit" value="Join" formaction="join_form.php" >-->
             <input class="index_submit" type="submit" id="signup" value="Join">

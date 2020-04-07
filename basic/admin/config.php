@@ -1,7 +1,7 @@
 <?php
 define('LOCAL','//local3_admin.com');
 
-$DB1 = array(
+$DB = array(
     'Host' => 'localhost',
     'dbName' => 'basic',
     'dbUser' => 'root',
