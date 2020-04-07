@@ -7,3 +7,5 @@ $DB = array(
     'dbUser' => 'root',
     'dbPass' => '1234'
 );
+
+$key = 'q1w2e3r4t5';

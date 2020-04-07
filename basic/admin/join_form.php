@@ -94,8 +94,8 @@ include_once $_SERVER['DOCUMENT_ROOT'].'/lib/db.php';
             });
             
             $('#check').on('click',function () {
-                if ($('#id').val().length > 10) {
-                    alert('최대 10자입니다.');
+                if ($('#id').val().length > 10 || $('#id').val().length < 4) {
+                    alert('최소 4자, 최대 10자입니다.');
                     return false;
                 } else {
                     $.ajax({
@@ -104,10 +104,16 @@ include_once $_SERVER['DOCUMENT_ROOT'].'/lib/db.php';
                         data: {id: $('#id').val(), mode: 'check'},
                         dataType: 'html',
                         success: function (data) {
+                            // 0: 사용가능 1: 아이디 중복 2: 한글,공백사용
                             if (data == 1) {
                                 alert('중복된 아이디입니다.');
+                                $('#id_check').val(0);
+                            } else if(data == 2) {
+                                alert('아이디에 한글 또는 공백 사용이 불가합니다.');
+                                $('#id_check').val(0);
                             } else {
                                 alert('사용 가능합니다.');
+                                $('#id_check').val(1);
                             }
                         },
                         error: function () {
@@ -117,8 +123,22 @@ include_once $_SERVER['DOCUMENT_ROOT'].'/lib/db.php';
                 }
             });
 
+            // $('#id').on('change',function () {
+            //    if(confirm('수정하시면 아이디 체크를 다시 하셔야합니다.\n수정하시겠습니까?')) {
+            //        $('#id_check').val(0);
+            //    } else {
+            //        return false;
+            //    }
+            // });
+
+            //$('')
+
             $('#form').on('submit',function () {
-                if ($('#id').val().length <= 3) {
+                if ($('#id_check').val() != 1) {
+                    alert('아이디 체크를 해주세요');
+                    $('#id_check').focus();
+                    return false;
+                } else if ($('#id').val().length <= 3) {
                     alert('아이디 최소 4자');
                     $('#id').focus();
                     return false;
@@ -156,8 +176,8 @@ include_once $_SERVER['DOCUMENT_ROOT'].'/lib/db.php';
             <input class="login_text" type="text" placeholder="name" name="name" id="name" autocomplete="off"><br>
             <label for="birth">생년월일</label>
             <input class="login_text" type="text" placeholder="birth" name="birth" id="birth" autocomplete="off"><br>
-<!--            <input class="index_submit" type="submit" formaction="member/login.php" value="Log in">-->
-<!--            <input class="index_submit" type="submit" value="Join" formaction="join_form.php" >-->
+            <input type="hidden" name="mode" value="insert">
+            <input type="hidden" name="id_check" id="id_check" value="0">
             <input class="index_submit" type="submit" id="signup" value="Join">
         </form>
     </div>

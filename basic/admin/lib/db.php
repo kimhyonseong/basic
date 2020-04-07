@@ -27,21 +27,27 @@ class db
             $dbi = $this->conn;
             //var_dump($this->conn);
 
-            $param = array(
-                ':id' => $id,
-                ':pw' => $pw,
-                ':name' => $name,
-                ':birth' => $birth
-            );
-            $query = 'insert into user(id,pw,name,birth)
+            if ($this->check_id($id) != 0) {
+                echo '<script>alert("이미 존재하는 아이디입니다."); history.back();</script>';
+                exit();
+            } else {
+
+                $param = array(
+                    ':id' => $id,
+                    ':pw' => $pw,
+                    ':name' => $name,
+                    ':birth' => $birth
+                );
+                $query = 'insert into user(id,pw,name,birth)
                   values(:id,:pw,:name,:birth)';
 
-            $stmt = $dbi->prepare($query);
+                $stmt = $dbi->prepare($query);
 
-            foreach ($param as $key => &$val) {    // &를 붙여 참조전달
-                $stmt->bindParam($key, $val);
+                foreach ($param as $key => &$val) {    // &를 붙여 참조전달
+                    $stmt->bindParam($key, $val);
+                }
+                $stmt->execute();
             }
-            $stmt->execute();
         } catch (PDOException $e) {
             echo $e->getMessage();
         }
