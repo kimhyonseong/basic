@@ -2,6 +2,8 @@
 //$_SERVER['DOCUMENT_ROOT'] = htdocs3/admin
 include_once $_SERVER['DOCUMENT_ROOT'].'/config.php';
 include_once $_SERVER['DOCUMENT_ROOT'].'/lib/db.php';
+
+//echo date("Y.m.d",1586754583);
 ?>
 <!DOCTYPE html>
 <html lang="ko">
@@ -95,7 +97,7 @@ include_once $_SERVER['DOCUMENT_ROOT'].'/lib/db.php';
         <form method="post">
             <input class="login_text" type="text" placeholder="ID" name="id" autocomplete="off"><br>
             <input class="login_text" type="password" placeholder="password" name="pw"><br>
-            <input class="index_submit" type="submit" formaction="member/login.php" value="Log in">
+            <input class="index_submit" type="submit" formaction="proc/signin.php" value="Log in">
             <input class="index_submit" type="submit" value="Join" formaction="join_form.php" >
         </form>
     </div>

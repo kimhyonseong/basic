@@ -6,12 +6,10 @@ include_once $_SERVER['DOCUMENT_ROOT'].'config.php';
 <head>
     <meta charset="UTF-8">
     <title>Layout</title>
-    <link href="https://fonts.googleapis.com/css?family=Gotu|Nanum+Gothic+Coding&display=swap" rel="stylesheet">
     <style>
         /* * {padding: 0; margin:0}*/
         body {
-            background: #f3e5f5;
-            font-family: 'Gotu', sans-serif, 'Nanum Gothic Coding', monospace;
+            background: #F6F6F6;
             font-size: 30px;
         }
         a:link { color: black; text-decoration: none;}
@@ -30,18 +28,25 @@ include_once $_SERVER['DOCUMENT_ROOT'].'config.php';
         }
 
         input {
-            width: 320px;
-            height: 60px;
+            width: 200px;
+            height: 50px;
             border: none;
+            border-bottom: #dcdcdc 2px solid;
             background: none;
             outline: none;
-            font-size: 35px;
+            font-size: 15px;
+            margin-bottom: 10px;
         }
 
         .button {
-            width: 300px;
-            background:#9575cd;
-            border-radius: 15px;
+            width: 120px;
+            height: 50px;
+            margin: 30px 10px 10px 10px;
+            border-radius: 10px;
+            border: none;
+            font-size: 20px;
+            background-color: #585858;
+            color: white;
         }
 
         /*
@@ -69,7 +74,7 @@ include_once $_SERVER['DOCUMENT_ROOT'].'config.php';
 </head>
 <body>
 <div id="wrap">
-    <header>
+    <header style="color: #585858; font-weight: bold; font-size: 30px; margin-top: 15vh;">
         Admin LogIn
     </header>
     <section>

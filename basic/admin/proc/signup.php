@@ -15,13 +15,19 @@ if ($mode == 'check') {
         echo 2;     // 한글 또는 공백포함 상태
         exit();
     }
-
+    // ajax가 html 타입으로 호출함
     echo $dbi->check_id($id);
 } else {
     $pw = $enc->lock($_POST['pw']);
     $name = $_POST['name'];
     $birth = $_POST['birth'];
 
-    $dbi->insert_user($id, $pw, $name, $birth);
+    if($dbi->insert_user($id, $pw, $name, $birth)){
+        echo '<script>alert("가입이 완료되었습니다."); location.href="'.LOCAL.'"</script>';
+    } else {
+        echo '<script>alert("에러가 발생하였습니다."); history.back();</script>';
+    }
+//    $where = array('id'=>'khs1');
+//    $dbi->select_query('user',$where);
 
 }

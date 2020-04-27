@@ -4,6 +4,7 @@ include_once $_SERVER['DOCUMENT_ROOT'].'/config.php';
 class db
 {
     public $conn = null;
+    public $tmp_stmt = null;
 
     public function __construct()
     {
@@ -47,9 +48,11 @@ class db
                     $stmt->bindParam($key, $val);
                 }
                 $stmt->execute();
+                return 1;
             }
         } catch (PDOException $e) {
-            echo $e->getMessage();
+            //echo $e->getMessage();
+            return 0;
         }
     }
 
@@ -75,9 +78,55 @@ class db
         }
     }
 
+    public function select_cnt($table,array $where_obj = null) {
+        $query = 'select count(*) from '.$table;
 
-    public function login($id,$pw){
+    }
 
+    public function select_query($table,array $where_obj = null){
+
+        $query = 'select * from '.$table;
+        //$obj = null;
+        if (!is_null($where_obj)) {
+            //var_dump($where_obj);
+            $cnt = count($where_obj);
+            $obj = array();
+
+            foreach($where_obj as $key => $val) {
+                $obj[] = $key.' = :'.$key.' and ';
+            }
+
+            $obj[$cnt-1] = str_replace('and ','',$obj[$cnt-1]);
+            $where = ' where ';
+            for ($i=0; $i<$cnt; $i++) {
+                $where .= $obj[$i];
+            }
+            $query .= $where;
+        }
+        //echo $query;
+        $stmt = $this->conn->prepare($query);
+        $this->tmp_stmt = $stmt;
+
+        if (isset($obj)) {
+            foreach ($where_obj as $key => $val){
+                $stmt->bindParam(':'.$key,$val);
+            }
+        }
+        $stmt->execute();
+    }
+
+    public function fetch(){
+
+        $result = array();
+
+        if (!is_null($this->tmp_stmt)) {
+            while ($row = $this->tmp_stmt->fetch(PDO::FETCH_ASSOC)) {
+                $result = $row;
+            }
+            return $result;
+        } else {
+            return false;
+        }
     }
 
 }

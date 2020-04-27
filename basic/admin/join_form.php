@@ -2,13 +2,17 @@
 //$_SERVER['DOCUMENT_ROOT'] = htdocs3/admin
 include_once $_SERVER['DOCUMENT_ROOT'].'/config.php';
 include_once $_SERVER['DOCUMENT_ROOT'].'/lib/db.php';
+//$dbi = new db();
+//$where = array('id'=>'khs1');
+//$dbi->select_query('user',$where);
+//var_dump($dbi->fetch());
 ?>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <title>Admin_index</title>
-    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script type="text/javascript" src="//code.jquery.com/jquery-latest.min.js"></script>
     <style>
         * {padding: 0; margin:0}
         #wrap {
@@ -123,15 +127,20 @@ include_once $_SERVER['DOCUMENT_ROOT'].'/lib/db.php';
                 }
             });
 
-            // $('#id').on('change',function () {
-            //    if(confirm('수정하시면 아이디 체크를 다시 하셔야합니다.\n수정하시겠습니까?')) {
-            //        $('#id_check').val(0);
-            //    } else {
-            //        return false;
-            //    }
-            // });
+            $('#id').on('keydown',function () {
+                //keyup : 백스페이시 지워짐
+                //keypress : 영어, 숫자만 가능 백스페이스 미지원
 
-            //$('')
+                if ($('#id_check').val() == 1) {
+                    var notice = confirm('수정하시면 아이디 체크를 다시 하셔야합니다.\n수정하시겠습니까?');
+
+                    if (notice) {
+                        $('#id_check').val(0);
+                    } else {
+                        return false;
+                    }
+                }
+            });
 
             $('#form').on('submit',function () {
                 if ($('#id_check').val() != 1) {
@@ -140,6 +149,7 @@ include_once $_SERVER['DOCUMENT_ROOT'].'/lib/db.php';
                     return false;
                 } else if ($('#id').val().length <= 3) {
                     alert('아이디 최소 4자');
+                    $('#id_check').val(0);
                     $('#id').focus();
                     return false;
                 } else if ($('#pw').val().length <= 3) {
@@ -156,7 +166,7 @@ include_once $_SERVER['DOCUMENT_ROOT'].'/lib/db.php';
                     $('#birth').focus();
                     return false;
                 }
-            })
+            });
         })
     </script>
 </head>
