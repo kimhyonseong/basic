@@ -12,10 +12,16 @@
     <meta charset="UTF-8">
     <title>Test</title>
     <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <style>
+        #file_load {
+            transition: all .2s ease-in-out;
+        }
+    </style>
 </head>
 <body>
 <script>
     $(function () {
+        var files = '';
         $('#file_load').on('dragover',function (e) {
             e.stopPropagation();
             e.preventDefault();
@@ -25,10 +31,13 @@
             e.preventDefault();
             $(this).css('background','#FFFFFF');
         }).on('drop',function (e) {
+            e.stopPropagation();
             e.preventDefault();
             $(this).css('background','#FFFFFF');
 
             //여기서 함수
+            files = e.originalEvent.dataTransfer.files;
+            console.log(files);
         })
     })
 </script>
