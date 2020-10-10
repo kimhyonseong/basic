@@ -79,6 +79,8 @@
                 </div>
             @endif
 
+            @show 22
+
             <div class="content">
                 <div class="title m-b-md">
                     Laravel

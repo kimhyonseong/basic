@@ -14,3 +14,25 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+    Route::get('/welcome', function () {
+        return view('welcome');
+    });
+
+    Route::get('/test', function () {
+//        $view = view('test');
+//        $view->test = 'first test';
+        $items = array('apple','iphone');
+
+        return view('test',compact('items'));
+    });
+
+    Route::get('/test2',function () {
+        $test = DB::table('tests')->get();
+
+        return view('test2',compact('test'));
+    });
+
+    Route::get('posts',function () {
+        return 'Hello';
+    });
