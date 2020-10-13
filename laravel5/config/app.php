@@ -52,6 +52,7 @@ return [
     |
     */
 
+    // url을 수정하면 기본 url이 수정됨 (만약 포트가 8000이라면 'http://localhost:8000'로 수정하면 됨)
     'url' => env('APP_URL', 'http://localhost'),
 
     'asset_url' => env('ASSET_URL', null),
