@@ -4,18 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-// 리소스 컨트롤러 옵션 --resource
 class PostCommentController extends Controller
 {
     /**
      * Display a listing of the resource.
-     * @param $postId
+     *
      * @return \Illuminate\Http\Response
      */
-    public function index($postId)
+    public function index()
     {
         //
-        return '['.__METHOD__."] \$postId = {$postId}";
     }
 
     /**
@@ -42,14 +40,12 @@ class PostCommentController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $postId
-     * @param int $commentId
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($postId,$commentId)
+    public function show($id)
     {
         //
-        return $postId . '-' . $commentId;
     }
 
     /**

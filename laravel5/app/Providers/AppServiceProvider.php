@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Builder;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -17,7 +17,6 @@ class AppServiceProvider extends ServiceProvider
         //
     }
 
-
     /**
      * Bootstrap any application services.
      *
@@ -25,7 +24,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // 버전에 따라 인덱스, 마이그레이션 생성할 때 기본 길이를 수동으로 구성해야 한다.
-        Schema::defaultStringLength(191);
+        Builder::defaultStringLength(191);
     }
 }
