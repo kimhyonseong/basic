@@ -17,14 +17,14 @@
         return view('welcome');
     });
 
-    Route::resource('posts', 'App\Http\Controllers\PostsController');
+//    Route::resource('posts', 'App\Http\Controllers\PostsController');
+//
+//    Route::resource('posts.comments', 'App\Http\Controllers\PostCommentController');
 
-    Route::resource('posts.comments', 'App\Http\Controllers\PostCommentController');
-
-    Route::get('posts', [
-        'as' => 'posts.index',
-        'uses' => 'App\Http\Controllers\PostsController@index'
-    ]);
+//    Route::get('posts', [
+//        'as' => 'posts.index',
+//        'uses' => 'App\Http\Controllers\PostsController@index'
+//    ]);
 
     Event::listen('user.login',function($user){
 //        var_dump('"user.log" event caught and passed data is: ');
@@ -53,8 +53,6 @@
         }
     );
 
-
-
     Route::get('auth/logout', function () {
         Auth::logout();
 
@@ -70,3 +68,22 @@
             return 'welcome ' . Auth::user()->name;
         }
     ]);
+
+    Route::post('posts', function (\Illuminate\Http\Request $request) {
+        $rule = [
+            'title' => 'required',
+            'body' => 'required|min:10'
+        ];
+
+        $validator = Validator::make($request->all(),$rule);
+
+        if ($validator->fails()) {
+            return redirect('posts/create')->withErrors($validator)->withInput();
+        }
+
+        return 'Valid & proceed to next job ~';
+    });
+
+    Route::get('posts/create',function () {
+        return view('posts.create');
+    });
