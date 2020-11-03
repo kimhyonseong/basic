@@ -14,9 +14,15 @@
     */
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 //    Route::get('/', function () {
 //        return view('welcome');
 //    });
+=======
+    Route::get('/', function () {
+        return view('welcome');
+    });
+>>>>>>> 76ca6df6dd6531b8fc1f10d8804284d1c7d21c43
 =======
     Route::get('/', function () {
         return view('welcome');
@@ -93,6 +99,7 @@
     Route::get('posts/create',function () {
         return view('posts.create');
 <<<<<<< HEAD
+<<<<<<< HEAD
     });
 
     Route::get('/',function () {
@@ -110,6 +117,8 @@
         Suspendisse id sem consectetuer libero luctus adipiscing.
 EOT;
         return app(ParsedownExtra::class)->text($text);
+=======
+>>>>>>> 76ca6df6dd6531b8fc1f10d8804284d1c7d21c43
 =======
 >>>>>>> 76ca6df6dd6531b8fc1f10d8804284d1c7d21c43
     });

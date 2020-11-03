@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="6c96157d-73a6-4b83-a8f4-081cd6692290" name="Default Changelist" comment="" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution>
+      <executable />
+    </execution>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="1YgeGYyzrcCaX3YuKXqs6AsBstg" />
+  <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../apache/conf" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs3\font" />
+      <recent name="C:\xampp\htdocs3" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs3\admin" />
+      <recent name="C:\xampp\htdocs3" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="6c96157d-73a6-4b83-a8f4-081cd6692290" name="Default Changelist" comment="" />
+      <created>1583368569221</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1583368569221</updated>
+      <workItem from="1583368570381" duration="205000" />
+      <workItem from="1583381544772" duration="2672000" />
+      <workItem from="1583454856113" duration="669000" />
+      <workItem from="1583730306705" duration="1634000" />
+      <workItem from="1583971154474" duration="355000" />
+      <workItem from="1584063353033" duration="3391000" />
+      <workItem from="1584080943437" duration="1367000" />
+      <workItem from="1584333495908" duration="3299000" />
+      <workItem from="1584494589601" duration="6985000" />
+      <workItem from="1584576494596" duration="9423000" />
+      <workItem from="1585183115949" duration="1214000" />
+      <workItem from="1585524420890" duration="10831000" />
+      <workItem from="1585614031518" duration="4351000" />
+      <workItem from="1585699896038" duration="4886000" />
+      <workItem from="1586150522492" duration="8616000" />
+      <workItem from="1586215276751" duration="226000" />
+      <workItem from="1586215632001" duration="12636000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+</project>
