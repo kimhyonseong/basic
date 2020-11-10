@@ -11,8 +11,9 @@ web.php에서 app으로 파서 호출 및 text 메소드를 이용하여 문서 
   
 --- 
 #### 컨트롤파일을 이용하여 파일 읽기(20/11/10)  
+  
 app/helpers.php 추가  
 composer.json files 추가  
 composer dump-autoload - 오토로드 리프레시  
 Document 모델과 컨트롤러 참고    
----
+
