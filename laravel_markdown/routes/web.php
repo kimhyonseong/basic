@@ -17,8 +17,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('docs/{file?}',function ($file = null){
-    $text = (new App\Models\Document)->get($file);
-
-    return app(ParsedownExtra::class)->text($text);
-});
+Route::get('docs/{file?}',[
+    'as' => 'documents.show',
+    'uses' => 'App\Http\Controllers\DocumentsController@show'
+]);
