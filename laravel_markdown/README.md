@@ -16,4 +16,9 @@ app/helpers.php 추가
 composer.json files 추가  
 composer dump-autoload - 오토로드 리프레시  
 Document 모델과 컨트롤러 참고    
-
+    
+---
+#### Cache(20/11/11)  
+Documnet 컨트롤러 참고  
+cache 앞에 '\\'를 사용 - 루트 네임스페이스(use 생략가능)  
+storage/framework/cache/data 하위에 캐시 파일 생성  
