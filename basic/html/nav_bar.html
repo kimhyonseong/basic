@@ -4,50 +4,11 @@
     <meta charset="UTF-8">
     <title>Nav bar</title>
     <script src="https://kit.fontawesome.com/8bb6ae7263.js" crossorigin="anonymous"></script>
+    <meta http-equiv="x-ua-compatible" content="IE=10">
+    <script src="nav_active.js" defer></script>
+    <link rel="stylesheet" href="nav_css.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
-<style>
-    * {
-        padding: 0;
-    }
-    html body {
-        padding: 0;
-        margin: 0;
-    }
-    a {
-        text-decoration: none;
-        color: #E4E4E4;
-    }
-    ul {
-        list-style: none;
-    }
-    i {
-        font-size: 20px;
-    }
-    i.fa-uncharted {
-        color : #FFBB00;
-    }
-    .nav_box {
-        display: flex;
-        background-color: #000063;
-        justify-content: space-between;
-        text-align: center;
-        align-items: center;
-        padding: 8px 10px;
-    }
-    .nav_menu{
-        display: flex;
-    }
-    .nav_menu li {
-        padding: 8px 10px;
-    }
-    .nav_sns {
-        display: flex;
-    }
-    .nav_sns li {
-        justify-content: center;
-        padding: 8px 10px;
-    }
-</style>
 <body>
 <nav class="nav_box">
     <div class="nav_logo">
@@ -75,6 +36,9 @@
         <li><a href="javascript:void(0);">
             <i class="fab fa-facebook-f"></i></a></li>
     </ul>
+    <a href="javascript:void(0);" class="nav_toggle">
+        <i class="fas fa-bars"></i>
+    </a>
 </nav>
 </body>
 </html>
