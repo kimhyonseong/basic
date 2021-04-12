@@ -1,0 +1,55 @@
+root {
+
+}
+
+html, body {
+    padding: 0;
+    margin: 0;
+}
+@media all and (max-width: 720px) {
+    .nav_box {
+        display: flex;
+        background-color: #242424;
+        justify-content: space-between;
+        padding: 8px 10px;
+    }
+
+    a {
+        text-decoration: none;
+        color: aliceblue;
+    }
+
+    .fa-youtube {
+        color: red;
+    }
+
+    .nav_etc * {
+        color: aliceblue;
+        cursor: pointer;
+        padding: 0px 3px;
+    }
+
+    .video_div{
+        justify-content: center;
+        width: auto;
+        padding: 10px;
+    }
+    .reg_date {
+        color: #6C6C6C;
+        font-size: 12px;
+    }
+    .evaluate {
+        padding: 0;
+        display: flex;
+        justify-content: space-evenly;
+    }
+    .evaluate li {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+    }
+    .evaluate li i,.evaluate li span {
+        text-align: center;
+        color: #6C6C6C;
+    }
+}
