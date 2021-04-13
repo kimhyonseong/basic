@@ -38,7 +38,7 @@
         </ul>
         <div class="titleAndButton">
             <span class="title">Clone Coding: Youtube Mobile Website 유튜브 모바일 웹사이트 따라 만들기
-                | 프론트앤드 개발자 입문편 : HTML, CSS, Javascript</span>
+                | 프론트앤드 개발자 입문편 : HTML, CSS, Javascript #기본 #따라하기 #제목 #3줄만들기 #조금만 #더욱 #길어져라 #조금만더</span>
             <button class="moreBt">
                 <i class="fas fa-caret-down"></i>
             </button>
@@ -72,6 +72,7 @@
         <div class="metadata">
             <img src="" alt="">
             <div class="info">
+                <img src="https://via.placeholder.com/30x30" alt="" class="profile">
                 <span class="name">파란햇님</span>
                 <span class="subscribers">20 subscribers</span>
             </div>
