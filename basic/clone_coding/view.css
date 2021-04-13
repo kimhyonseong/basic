@@ -5,6 +5,7 @@
     --color-black : black;
     --color-white : #EDEDED;
     --color-blue : #0054FF;
+    --color-grey : #D5D5D5;
     /*Size*/
     --space : 15px;
     /*Font Size*/
@@ -19,6 +20,10 @@
     margin:0;
 }
 
+html {
+    min-width: 460px;
+}
+
 a {
     text-decoration: none;
 }
@@ -30,6 +35,11 @@ ul {
 button {
     border: none;
     background-color: transparent;
+    cursor: pointer;
+}
+
+button:focus{
+    outline: none;
 }
 
 header {
@@ -51,42 +61,47 @@ header .icon i {
     padding: 0 5px;
 }
 
-section .player {
+section.player {
     width: 100%;
 }
 
-section .player .video{
+section.player .video{
     width: 100%;
 }
 
 section.info {
     padding: 8px 10px;
 }
-section.info .metadata{
+section.info>.metadata{
     margin-bottom: var(--space);
 }
-section.info .metadata .hashTag{
+section.info>.metadata .hashTag{
     display: flex;
 }
-section.info .metadata .hashTag li{
+section.info>.metadata .hashTag li{
     color: var(--color-blue);
     font-size: var(--size-s);
     margin-right: calc(var(--space)/2);
 }
 
-section.info .metadata .titleAndButton{
+section.info>.metadata .titleAndButton{
     display: flex;
 }
 
-section.info .metadata .titleAndButton .title {
+section.info>.metadata .titleAndButton .title {
     font-size: var(--size-m);
+
+    overflow: hidden;
+    /*padding-right: 10px;*/
+}
+
+section.info>.metadata .titleAndButton .title.clamp{
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
-    overflow: hidden;
-    padding-right: 10px;
 }
-section.info .metadata .views {
+
+section.info>.metadata .views {
     font-size: var(--size-s);
     color:var(--color-dark-grey);
 }
@@ -94,16 +109,139 @@ section.info .metadata .views {
 section.info .actions{
     display: flex;
     justify-content: space-between;
-    color: var(--color-dark-grey);
+    margin: 0 calc(var(--space)*2);
 }
 
 section.info .actions li button{
     display: flex;
     flex-direction: column;
+    color: var(--color-dark-grey);
+    transition: transform .5s, color .5s;
+}
+
+section.info .actions li button:hover{
+    color: var(--color-blue);
+    transform: scale(1.3);
+    transition: transform .5s, color .5s;
 }
 
 section.info .actions li button i{
     margin: 0 auto;
     font-size: var(--size-m);
     margin-bottom: calc(var(--space)/2);
+}
+
+section.info .actions .active{
+    color: var(--color-blue);
+}
+
+.moreBt{
+    margin-left: var(--space);
+    transition: transform .5s;
+}
+
+.moreBt i.clamp{
+    transform: rotate(180deg);
+    transition: transform .5s;
+}
+
+.channel{
+    display: flex;
+    justify-content: space-between;
+    border-bottom: solid 1px var(--color-grey);
+    border-top: solid 1px var(--color-grey);
+    margin-top: var(--space);
+    padding: 5px 0;
+}
+
+.channel .metadata{
+    display: flex;
+    align-items: center;
+}
+
+.profile {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: var(--space);
+}
+
+.channel .metadata .info{
+    display: flex;
+    flex-direction: column;
+}
+
+.channel .metadata .info .name{
+    font-size: var(--size-m);
+}
+
+.channel .metadata .info .subscribers{
+    font-size: var(--size-s);
+    color: var(--color-dark-grey);
+}
+
+.subscribe{
+    color: var(--color-red);
+    text-transform: uppercase;
+    font-size: var(--size-m);
+}
+
+.others_video {
+    padding: 0 var(--space);
+}
+
+.others_video>.title{
+    color: var(--color-dark-grey);
+    margin-bottom: var(--space);
+}
+
+.others_video .item{
+    display: flex;
+}
+
+.others_video .item .img{
+    flex: 1 1 35%;
+}
+.others_video .item .img img{
+    width: 100%;
+}
+.others_video .item .info{
+    flex: 1 1 60%;
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+}
+
+.others_video .item .info .title {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    font-size: var(--size-s);
+    margin-bottom: 3px;
+}
+
+.others_video .item .info .name {
+    font-size: var(--size-s);
+    margin-bottom: 3px;
+}
+
+.others_video .item .info .views {
+    font-size: var(--size-s);
+    color: var(--color-dark-grey);
+}
+
+.others_video .item .more{
+    flex: 1 1 5%;
+}
+
+.infoAndNext {
+    display: flex;
+    flex-direction: column;
+}
+
+@media screen and (min-width: 768px) {
+    .infoAndNext{
+        flex-direction: row;
+    }
 }
