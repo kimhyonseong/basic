@@ -29,8 +29,14 @@ class CreatePoketmonsTable extends Migration
             $table->index('type_num1');
             $table->index('type_num2');
 
-            $table->foreign('type_num1')->references('type_num')->on('types')->onUpdate('cascade');
-            $table->foreign('type_num2')->references('type_num')->on('types')->onUpdate('cascade');
+            $table->foreign('type_num1')
+                ->references('type_num')
+                ->on('types')
+                ->onUpdate('cascade');
+            $table->foreign('type_num2')
+                ->references('type_num')
+                ->on('types')
+                ->onUpdate('cascade');
         });
     }
 
