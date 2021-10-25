@@ -26,9 +26,9 @@ class CreateNextEvolutionsTable extends Migration
                 ->onUpdate('cascade');
         });
 
-        \App\Models\Next_evolution::create([
+        \App\Models\Evolution::create([
             /* 1. poketmons 테이블에서 조회에서 여기에 삽입하기
-               2. poketmons 테이블의 next_evolution 칼럼 삭제 */
+               2. poketmons 테이블의 evolution 칼럼 삭제 */
         ]);
     }
 
@@ -40,7 +40,7 @@ class CreateNextEvolutionsTable extends Migration
     public function down()
     {
         /*  1. poketmons 테이블에 next_evolution 칼럼 생성
-            2. poketmons 테이블에  next_evolutions 테이블 데이터 넣기 */
+            2. poketmons 테이블에 evolutions 테이블 데이터 넣기 */
         Schema::dropIfExists('next_evolutions');
     }
 }
