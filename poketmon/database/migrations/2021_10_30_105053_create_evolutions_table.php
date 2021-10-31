@@ -15,8 +15,14 @@ class CreateEvolutionsTable extends Migration
     {
         Schema::create('evolutions', function (Blueprint $table) {
             $table->id();
-            $table->integer('group_num')->unsigned()->default(0)->comment('포켓몬 그룹 번호');
-            $table->integer('num')->nullable()->comment('포켓몬 번호');
+            $table->integer('group_num')->unsigned()->default(0)
+                ->comment('포켓몬 그룹 번호');
+            $table->integer('num')->unsigned()
+                ->comment('포켓몬 번호');
+            $table->string('name',100)
+                ->comment('포켓몬 이름');
+            $table->string('img',200)->nullable()
+                ->comment('포켓몬 이미지');
             $table->timestamps();
 
             $table->index('num');

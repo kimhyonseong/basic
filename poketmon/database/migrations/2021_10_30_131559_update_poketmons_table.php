@@ -23,7 +23,6 @@ class UpdatePoketmonsTable extends Migration
             $jsonStr = file_get_contents($jsonUrl);
 
             $contents = json_decode($jsonStr,false);
-            $cnt = count($contents);
 
             $poketmon = new Poketmon;
 
