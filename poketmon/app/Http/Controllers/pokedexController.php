@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Poketmon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class pokedexController extends Controller
 {
@@ -16,16 +17,16 @@ class pokedexController extends Controller
         return view('pokedex',['data'=>$returnData]);
     }
 
-    public function showMore(Request $request) {
-        $offset = 10;
-        $page = $request->input('page');
+    public function showMore(Request $request,$page) {
+        $offset = 20;
 
-        if (!is_integer($page)) {
+        // 숫자인지 확인
+        if (!is_numeric($page)) {
             $page = 0;
         }
 
         $resultArray = [];
-        $poketmons = Poketmon::all()->skip($offset * $page)->take(10);
+        $poketmons = Poketmon::all()->skip($offset * $page)->take($offset);
 
         foreach ($poketmons as $result) {
             if (!is_integer($result['num']) || $result['num'] < 1) {
@@ -34,17 +35,19 @@ class pokedexController extends Controller
             $poket['num'] = 'No.'.sprintf('%03d',$result['num']);
             $poket['name'] = $result['name'];
             $poket['html'] = '<li>
-                <div class="li_wrap">
-                    <div class="img">
-                        <div class="thumb">
-                            <img src="'.$result['img'].'" alt="'.$poket['name'].'">
+                <a href="pokedex/'.$result['num'].'">
+                    <div class="li_wrap">
+                        <div class="img">
+                            <div class="thumb">
+                                <img src="'.$result['img'].'" alt="'.$poket['name'].'">
+                            </div>
+                        </div>
+                        <div class="info">
+                            <div class="num">'.$poket['num'].'</div>
+                            <div class="name">'.$poket['name'].'</div>
                         </div>
                     </div>
-                    <div class="info">
-                        <div class="num">'.$poket['num'].'</div>
-                        <div class="name">'.$poket['name'].'</div>
-                    </div>
-                </div>
+                </a>
             </li>';
             array_push($resultArray,$poket);
         }
@@ -54,48 +57,78 @@ class pokedexController extends Controller
 
     public function showDetail(Request $request, $num){
         $result = [];
-        $sql = '
-select a.num, a.name, a.next_evolution,
-          b.num,b.name,b.next_evolution,
-          c.num,c.name,c.next_evolution,
-          d.num,d.name,d.next_evolution
-from poketmons a
-         left join poketmons b on b.num = a.next_evolution
-         left join poketmons c on c.num = b.next_evolution
-         left join poketmons d on d.next_evolution = a.num
-where a.num = 1;
+        $pokeList = [];
+        $evolution = [];
 
-select num,name,next_evolution
-from poketmons a where num = 1
-union
-select num,name,next_evolution
-from poketmons b where num = a.next_evolution;';
+        $thisPoke = Poketmon::all()->where('num','=',$num);
+        $pokeListRes = DB::table('poketmons')->select('name','num')
+            ->orWhere('num','=',$num + 1)
+            ->orWhere('num','=',$num - 1)
+            ->get();
 
-        $poketmon = Poketmon::all()->where('num','=',$num);
-        $pre_poketmon = Poketmon::all()->where('next_evolution','=',$num);
+//        $pokeListRes = DB::table('poketmons')
+//            ->select('name','num','num+1 as next_num','num-1 as pre_num')
+//            ->where('num','=',$num)
+//            ->get();
 
-        foreach ($poketmon as $poketInfo) {
-            $info['num'] = $poketInfo['num'];
-            $info['name'] = $poketInfo['name'];
-            $info['img'] = $poketInfo['img'];
-            $info['next_evolution'] = $poketInfo['next_evolution'];
-            $info['next_evolution_info'] = [];
+        /*
+         * select num,name,num+1 as next_num,num-1 as pre_num,
+         * (select max(num) from poketmons) as max_num
+         * from poketmons where num = 1; -> 이거 불러오기
+         *
+         * 1 일때 2,151
+         * 151 일때 1,150
+         */
 
-            if ($info['next_evolution'] > 0) {
-                $next_poketmon = Poketmon::all()->where('num', '=', $info['next_evolution']);
+        foreach ($pokeListRes as $pokeInfo) {
+            // 다음 번호 포켓몬
+            if ($pokeInfo->num == $num + 1) {
+                $next['num'] = $pokeInfo->num;
+                $next['name'] = $pokeInfo->name;
 
-                foreach ($next_poketmon as $next_poketInfo) {
-                    $next_info['num'] = $next_poketInfo['num'];
-                    $next_info['name'] = $next_poketInfo['name'];
-                    $next_info['img'] = $next_poketInfo['img'];
-                    $next_info['next_evolution'] = $next_poketInfo['next_evolution'];
+                echo $next['num'].' '.$next['name'].'<br>';
+                $pokeList[1] = $next;
+            } elseif ($pokeInfo->num == $num - 1) {
+                $pre['num'] = $pokeInfo->num;
+                $pre['name'] = $pokeInfo->name;
 
-                    array_push($info['next_evolution_info'],$next_info);
+                echo $pre['num'].' '.$pre['name'].'<br>';
+                $pokeList[0] = $pre;
+            }
+        }
+
+        foreach ($thisPoke as $pokeInfo) {
+            $info['num'] = $pokeInfo['num'];
+            $info['name'] = $pokeInfo['name'];
+            $info['img'] = $pokeInfo['img'];
+            $info['group_num'] = $pokeInfo['group_num'];
+
+            if ($info['group_num'] > 0) {
+                $evolutionPoke = DB::table('poketmons as a')
+                    ->join('evolutions as b','a.group_num','=','b.group_num')
+                    ->select('b.*')
+                    ->where('a.num','=',$info['num'])
+                    ->get();
+
+                foreach ($evolutionPoke as $evolPoke) {
+                    $evolInfo = [];
+                    $evolInfo['name'] = $evolPoke->name;
+                    $evolInfo['num'] = $evolPoke->num;
+                    $evolInfo['img'] = $evolPoke->img;
+
+                    // 진화 포켓몬
+                    array_push($evolution,$evolInfo);
                 }
             }
-
+            // 현재 포켓몬
             array_push($result,$info);
         }
-        return view('poketDetail',['data'=>$result]);
+        return view('poketDetail',
+            [
+                'poke'=>$result,
+                'evolution' =>$evolution,
+                'pokeList' =>$pokeList,
+                //'pre_num' => $
+            ]);
     }
 }
