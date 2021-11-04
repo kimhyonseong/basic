@@ -19,7 +19,7 @@ class Poketmon extends Model
         "img",
         "type_num1",
         "type_num2",
-        "next_evolution",
+        "group_num",
         "created_at",
         "updated_at",
     ];
