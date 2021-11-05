@@ -2,14 +2,14 @@
 
 @section('pokeList')
     <div class="pokeList">
-        <div class="prePoke">
+        <div class="pokeListInner">
             <a href="/pokedex/{{$pokeList['pre']['num_int']}}">
-                {{$pokeList['pre']['num_str'].$pokeList['pre']['name']}}
+                {{$pokeList['pre']['num_str'].' '.$pokeList['pre']['name']}}
             </a>
         </div>
-        <div class="nextPoke">
-            <a href="/pokedex/{{$pokeList['next']['num_int']}}">
-                {{$pokeList['next']['num_str'].$pokeList['next']['name']}}
+        <div class="pokeListInner">
+            <a href="/pokedex/{{$pokeList['next']['num_int']}}" class="right">
+                {{$pokeList['next']['num_str'].' '.$pokeList['next']['name']}}
             </a>
         </div>
     </div>
@@ -51,6 +51,12 @@
 @endsection
 
 @section('css')
+    .right {
+    text-align: right;
+    justify-content: right;
+    margin-right: 0 !important;
+    margin-left: 7px;
+    }
     .contain {
     width: 100%;
     margin: auto;
@@ -82,9 +88,33 @@
     }
     .contain .pokeList {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
+
+    }
+    .contain .pokeList .pokeListInner {
+    flex: 1 1 50%;
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    }
+    .contain .pokeList .pokeListInner a{
+    background-color: #393939;
+    color: #cbd5e0;
+    width: 100%;
+    height: 100%;
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+    margin-right: 7px;
+    }
+    .contain .pokeList .pokeListInner:hover {
+    background-color: #2d3748;
     }
     .contain .evolution {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
     }
+
 @endsection

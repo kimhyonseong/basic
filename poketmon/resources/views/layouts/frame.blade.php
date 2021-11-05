@@ -20,6 +20,8 @@
             justify-content: space-between;
             box-shadow: 0 1px 20px 0 rgba(0, 0, 0, 0.4);
             font-size: 30px;
+            position: fixed;
+            width: 100%;
         }
 
         header .in_header {
@@ -42,9 +44,8 @@
         header ul li {
             padding: 0 10px;
         }
-
         main {
-            padding-top: 20px;
+            padding-top: 50px;
         }
 
         main ul {
@@ -75,27 +76,27 @@
             text-decoration: none;
             color: black;
         }
-        #poketmonList li {
-            width: 150px;
-            height: 180px;
-            box-shadow: 3px 3px 7px gray;
-            border-radius: 10px;
-            margin: 20px;
-        }
-        #poketmonList li .li_wrap {
-            box-sizing: border-box; padding: 10px; width: 100%; height: 100%;
-        }
-        #poketmonList li .li_wrap .img {
-            width: 100%; height: 75%; display: flex; justify-content: center;
-        }
-        #poketmonList li .li_wrap .info {
-            width: 100%;
-        }
-        #poketmonList li .li_wrap .info .num{
-            font-size: small;
-            color: rgba(0,0,0,0.6);
-            margin: 1px 0;
-        }
+        /*#poketmonList li {*/
+        /*    width: 150px;*/
+        /*    height: 180px;*/
+        /*    box-shadow: 3px 3px 7px gray;*/
+        /*    border-radius: 10px;*/
+        /*    margin: 20px;*/
+        /*}*/
+        /*#poketmonList li .li_wrap {*/
+        /*    box-sizing: border-box; padding: 10px; width: 100%; height: 100%;*/
+        /*}*/
+        /*#poketmonList li .li_wrap .img {*/
+        /*    width: 100%; height: 75%; display: flex; justify-content: center;*/
+        /*}*/
+        /*#poketmonList li .li_wrap .info {*/
+        /*    width: 100%;*/
+        /*}*/
+        /*#poketmonList li .li_wrap .info .num{*/
+        /*    font-size: small;*/
+        /*    color: rgba(0,0,0,0.6);*/
+        /*    margin: 1px 0;*/
+        /*}*/
         @yield('css')
     </style>
 </head>
