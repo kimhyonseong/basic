@@ -115,8 +115,14 @@ class pokedexController extends Controller
             $info['weakness'] = $pokeInfo['weakness'];
             $info['type_num1'] = $pokeInfo['type_num1'];
             $info['type_num2'] = $pokeInfo['type_num2'];
-            $info['weight'] = $pokeInfo['weight'];
-            $info['height'] = $pokeInfo['height'];
+            $info['weight'] = sprintf('%.1f',$pokeInfo['weight']).'kg';
+            $info['height'] = sprintf('%.2f',$pokeInfo['height']).'m';
+
+            if (empty($info['type_num2'])) {
+                $info['types'] = typeHtml($info['type_num1']);
+            } else {
+                $info['types'] = typeHtml($info['type_num1']) .' '. typeHtml($info['type_num2']);
+            }
 
             if ($info['group_num'] > 0) {
                 $evolutionPoke = DB::table('poketmons as a')

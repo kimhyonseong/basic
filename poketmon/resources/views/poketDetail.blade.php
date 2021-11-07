@@ -1,5 +1,9 @@
 @extends('layouts.frame')
 
+{{--@section('type_box')--}}
+{{--    <span class="type" style="background-color: "></span>--}}
+{{--@endsection--}}
+
 @section('pokeList')
     <div class="pokeList">
         <div class="pokeListInner">
@@ -21,24 +25,35 @@
             <img src="{{$poke[0]['img']}}" alt="{{$poke[0]['name']}}" style="width: 350px;">
         </div>
         <div class="info">
+            <h3>
+                <p class="num">{{$poke[0]['num_str']}}</p>
             {{$poke[0]['name']}}
+            </h3>
+            <p>타입 : {!!$poke[0]['types']!!}</p>
+            <p>키 : {{$poke[0]['height']}}</p>
+            <p>몸무게 : {{$poke[0]['weight']}}</p>
         </div>
     </div>
 @endsection
 
 @section('evolution')
     <div class="evolution">
-        @for($i = 0; $i < count($evolution); $i++)
-        <div class="evolutionContent">
-            <div class="pokeImg">
-                <img src="{{$evolution[$i]['img']}}" alt="{{$evolution[$i]['name']}}">
+        <h3>진화</h3>
+        <div class="evolutionList">
+            @for($i = 0; $i < count($evolution); $i++)
+            <div class="evolutionContent">
+                <a href="/pokedex/{{$evolution[$i]['num_int']}}">
+                    <div class="pokeImg">
+                        <img src="{{$evolution[$i]['img']}}" alt="{{$evolution[$i]['name']}}">
+                    </div>
+                    <div class="info">
+                        {{$evolution[$i]['num_str']}}
+                        {{$evolution[$i]['name']}}
+                    </div>
+                </a>
             </div>
-            <div class="info">
-                {{$evolution[$i]['num_str']}}
-                {{$evolution[$i]['name']}}
-            </div>
+            @endfor
         </div>
-        @endfor
     </div>
 @endsection
 
@@ -60,14 +75,28 @@
     .contain {
     width: 100%;
     margin: auto;
-    box-shadow : 0 0 0 1px #000 inset;
+    /*box-shadow : 0 0 0 1px #000 inset;*/
+    }
+    .contain .pokeInfo::before {
+    position: absolute;
+    content: '';
+    top: -30px;
+    height: 40px;
+    width: 100%;
+    background-color: white;
+    border: 1px solid black;
+    border-bottom: 0;
+    border-radius: 20px 20px 0 0;
     }
     .contain .pokeInfo {
+    position: relative;
+    top: 10px;
     width: 70%;
     height: 400px;
-    margin: auto;
-    /*border: 1px black solid;*/
-    box-shadow : 0 0 0 1px #000 inset;
+    margin: 10px auto auto auto;
+    border: 1px solid black;
+    border-radius: 0 0 20px 20px;
+    /*box-shadow : 0 0 0 1px #000 inset;*/
     display: flex;
     justify-content: center;
     }
@@ -75,16 +104,21 @@
     width: 50%;
     height: 400px;
     margin: auto;
-    box-shadow : 0 0 0 1px #000 inset;
+    /*box-shadow : 0 0 0 1px #000 inset;*/
     display: flex;
     justify-content: center;
     align-items: center;
     }
     .contain .pokeInfo .info {
     width: 50%;
-    height: 400px;
+    /*height: 400px;*/
     margin: auto;
-    box-shadow : 0 0 0 1px #000 inset;
+    padding: 10%;
+    /*box-shadow : 0 0 0 1px #000 inset;*/
+    }
+    .contain .pokeInfo .info .num{
+    color: #6b7280;
+    font-size: 25px;
     }
     .contain .pokeList {
     display: flex;
@@ -107,14 +141,48 @@
     display: flex;
     align-items: center;
     margin-right: 7px;
+    transition: 0.5s;
     }
-    .contain .pokeList .pokeListInner:hover {
+    .contain .pokeList .pokeListInner a:hover {
     background-color: #2d3748;
+    transition: 0.5s;
     }
-    .contain .evolution {
+    .contain .evolution{
+    width: 70%;
+    margin: 35px auto auto auto;
+    }
+    .contain .evolution .evolutionList{
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
     }
-
+    .contain .evolution .evolutionList .evolutionContent {
+    display: flex;
+    align-items: center;
+    }
+    .contain .evolution .evolutionList .evolutionContent::before{
+    content: '';
+    transform: rotate(45deg);
+    border-top: #B5B5BBFF 5px solid;
+    border-right: #B5B5BBFF 5px solid;
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    margin-right: 40px;
+    }
+    .contain .evolution .evolutionList .evolutionContent:first-child::before{
+    content: '';
+    width: 0;
+    height: 0;
+    border-top: 0;
+    border-right: 0;
+    }
+    h3 {
+    font-size: 40px;
+    }
+    .type {
+    color: white;
+    padding: 2px 5px 2px 5px;
+    border-radius: 6px;
+    }
 @endsection

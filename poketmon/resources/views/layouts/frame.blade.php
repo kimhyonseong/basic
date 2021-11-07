@@ -8,6 +8,9 @@
     <meta name="csrf-token" content="{{csrf_token()}}">
     <title>도감</title>
     <style>
+        :root {
+            --header-height : 50px;
+        }
         * {
             margin: 0;
             padding: 0;
@@ -15,6 +18,7 @@
 
         header {
             background-color: white;
+            /*height: var(--header-height);*/
             height: 50px;
             display: flex;
             justify-content: space-between;
@@ -22,6 +26,7 @@
             font-size: 30px;
             position: fixed;
             width: 100%;
+            z-index: 1000;
         }
 
         header .in_header {
