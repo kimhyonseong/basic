@@ -8,9 +8,6 @@
     <meta name="csrf-token" content="{{csrf_token()}}">
     <title>도감</title>
     <style>
-        :root {
-            --header-height : 50px;
-        }
         * {
             margin: 0;
             padding: 0;
@@ -81,27 +78,6 @@
             text-decoration: none;
             color: black;
         }
-        /*#poketmonList li {*/
-        /*    width: 150px;*/
-        /*    height: 180px;*/
-        /*    box-shadow: 3px 3px 7px gray;*/
-        /*    border-radius: 10px;*/
-        /*    margin: 20px;*/
-        /*}*/
-        /*#poketmonList li .li_wrap {*/
-        /*    box-sizing: border-box; padding: 10px; width: 100%; height: 100%;*/
-        /*}*/
-        /*#poketmonList li .li_wrap .img {*/
-        /*    width: 100%; height: 75%; display: flex; justify-content: center;*/
-        /*}*/
-        /*#poketmonList li .li_wrap .info {*/
-        /*    width: 100%;*/
-        /*}*/
-        /*#poketmonList li .li_wrap .info .num{*/
-        /*    font-size: small;*/
-        /*    color: rgba(0,0,0,0.6);*/
-        /*    margin: 1px 0;*/
-        /*}*/
         @yield('css')
     </style>
 </head>
@@ -113,7 +89,8 @@
             <img src="{{asset('image/poketball.png')}}" style="width: 52px;" alt="메인 이동">
             <div class="right">
                 <ul>
-                    <li class="on">사전</li>
+                    <li>풀숲</li>
+                    <li class="on"><a href="/pokedex">사전</a></li>
                     <li>로그인</li>
                     <li>검색</li>
                 </ul>
@@ -124,6 +101,7 @@
     <main>
         @yield('content')
     </main>
+        @yield('script')
 </div>
 </body>
 </html>

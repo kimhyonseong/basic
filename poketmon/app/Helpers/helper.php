@@ -1,6 +1,7 @@
 <?php
 
-    function Type($param) {
+    function Type($param)
+    {
         if (is_numeric($param)) {
             return numToType($param);
         } else {
@@ -204,12 +205,12 @@
         return $bgColor;
     }
 
-    function typeHtml($param) : string
+    function typeHtml($param): string
     {
         if (is_numeric($param)) {
-            $html = '<span class="type" style="background-color: '.typeColor($param).'">'.Type($param).'</span>';
+            $html = '<span class="type" style="background-color: ' . typeColor($param) . '">' . Type($param) . '</span>';
         } else {
-            $html = '<span class="type" style="background-color: '.typeColor(Type($param)).'">'.$param.'</span>';
+            $html = '<span class="type" style="background-color: ' . typeColor(Type($param)) . '">' . $param . '</span>';
         }
         return $html;
     }

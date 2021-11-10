@@ -19,7 +19,7 @@
         return view('welcome');
     });
 
-    Route::get('/jsonParse', [jsonPaseTestController::class, 'show'])->name('jsonParse');
+    Route::get('/jsonParse', [jsonPaseTestController::class, 'showRare'])->name('jsonParse');
     Route::get('/pokedex', [pokedexController::class, 'show'])->name('pokedex');
     Route::get('/pokedex/{num}', [pokedexController::class, 'showDetail'])->name('pokedex');
     Route::get('/poketAjax/{page}', [pokedexController::class, 'showMore'])->name('poketAjax');

@@ -1,3 +1,6 @@
+json 출처  
+https://raw.githubusercontent.com/intelcoder/PokemonGO-Pokedex-Korean/master/pokedex-korean.json
+
 2021.10.14  
 git 연결
 
@@ -14,4 +17,10 @@ ajax 구현 완료
 포켓몬 테이블 데이터 수정 (group_num)  
 
 2021.10.31  
-진화 테이블 데이터 삽입  
+진화 테이블 데이터 삽입    
+  
+2021.11.07?  
+상세페이지 완성  
+
+2021.11.10  
+레어도 추가 및 테스트

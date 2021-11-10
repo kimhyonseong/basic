@@ -50,4 +50,31 @@ class jsonPaseTestController extends Controller
         $returnData = "";
         return view('jsonParseTest',['data'=>$returnData]);
     }
+
+    function showRare() {
+        $jsonUrl = asset('json/pokedex-korean.json');
+        $jsonStr = file_get_contents($jsonUrl);
+        $str = json_decode($jsonStr,false);
+
+        for ($i=0; $i<8; $i++) {
+            ${'rare_'.$i} = [];
+        }
+
+        foreach ($str as $poke) {
+//            $poke_group = [];
+//            echo $poke->name.' '.$poke->num.'<br>';
+//            echo '<br>';
+            //echo $poke->rare .' '. $poke->name.'<br>';
+            array_push(${'rare_'.(int)$poke->rare},$poke->name);
+        }
+        for ($i = 0; $i < 8; $i++) {
+            if (isset(${'rare_'.$i})) {
+                var_dump(${'rare_'.$i});
+                echo '<br><br>';
+            }
+        }
+
+        $returnData = "";
+        return view('jsonParseTest',['data'=>$returnData]);
+    }
 }
