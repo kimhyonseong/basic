@@ -67,12 +67,24 @@ class jsonPaseTestController extends Controller
             //echo $poke->rare .' '. $poke->name.'<br>';
             array_push(${'rare_'.(int)$poke->rare},$poke->name);
         }
-        for ($i = 0; $i < 8; $i++) {
-            if (isset(${'rare_'.$i})) {
-                var_dump(${'rare_'.$i});
-                echo '<br><br>';
-            }
-        }
+//        for ($i = 0; $i < 8; $i++) {
+//            if (isset(${'rare_'.$i})) {
+//                var_dump(${'rare_'.$i});
+//                echo '<br><br>';
+//            }
+//        }
+
+        $rateArray = [0,1,4,8,15,19,23,30];
+        $valueArray = ['rare_0','rare_1','rare_2','rare_3',
+            'rare_4','rare_5','rare_6','rare_7'];
+
+        $randomGroup = randomNum($rateArray,$valueArray);
+        $randomPokemon = ${$randomGroup}[mt_rand(0,count(${$randomGroup})-1)];
+
+        echo $randomGroup.'<br>';
+        echo $randomPokemon;
+
+
 
         $returnData = "";
         return view('jsonParseTest',['data'=>$returnData]);

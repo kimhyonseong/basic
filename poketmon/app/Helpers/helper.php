@@ -214,3 +214,18 @@
         }
         return $html;
     }
+
+    function randomNum($rateArray, $valueArray) {
+        $random = mt_rand(1,array_sum($rateArray));
+        $preRate = 0;
+        $nextRate = 0;
+
+        for ($i=0; $i<count($rateArray); $i++) {
+            // 이전 비율보다 크고 다음 비율보다 작거나 같아야 출력
+            if ($random <= $rateArray[$i] + $nextRate && $random > $preRate) {
+                return $valueArray[$i];
+            } else {
+                $nextRate +=  $rateArray[$i];
+            }
+        }
+    }
