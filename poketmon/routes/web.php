@@ -23,3 +23,5 @@
     Route::get('/pokedex', [pokedexController::class, 'show'])->name('pokedex');
     Route::get('/pokedex/{num}', [pokedexController::class, 'showDetail'])->name('pokedex');
     Route::get('/poketAjax/{page}', [pokedexController::class, 'showMore'])->name('poketAjax');
+
+    Route::get('/findPoke', [pokedexController::class, 'find'])->name('findPoke');

@@ -152,4 +152,8 @@ class pokedexController extends Controller
                 'pokeList' =>$pokeList,
             ]);
     }
+
+    public function find() {
+        return view('findPoke');
+    }
 }

@@ -216,16 +216,53 @@
     }
 
     function randomNum($rateArray, $valueArray) {
-        $random = mt_rand(1,array_sum($rateArray));
+        $random = mt_rand(1,array_sum($rateArray)*10);
+        $preRate = 0;
+        $nextRate = 0;
+        $findGroup = '';
+
+        for ($i=0; $i<count($rateArray); $i++) {
+            // 이전 비율보다 크고 다음 비율보다 작거나 같아야 출력
+            if ($random <= $rateArray[$i]*10 + $nextRate && $random > $preRate) {
+                $findGroup = $valueArray[$i];
+            } else {
+                $nextRate +=  $rateArray[$i]*10;
+            }
+        }
+
+        return $findGroup;
+    }
+
+    function findRandomPoke(array $array) {
+        /*
+         * ex) [ ['rate']=>0,['value']=>0.1 ] 2차 배열
+         */
+        $findGroup = 0;
+        $rateArray = [];
+        $valueArray = [];
+
+        foreach ($array as $key0 => $array2) {
+            foreach ($array2 as $keys => $values) {
+                if ($keys == 'rate') {
+                    array_push($rateArray, $values);
+                } else {
+                    array_push($valueArray, $values);
+                }
+            }
+        }
+
+        $random = mt_rand(1,array_sum($rateArray) * 10);
         $preRate = 0;
         $nextRate = 0;
 
         for ($i=0; $i<count($rateArray); $i++) {
             // 이전 비율보다 크고 다음 비율보다 작거나 같아야 출력
-            if ($random <= $rateArray[$i] + $nextRate && $random > $preRate) {
-                return $valueArray[$i];
+            if ($random <= $rateArray[$i] * 10 + $nextRate && $random > $preRate) {
+                $findGroup = $valueArray[$i];
+                break;
             } else {
-                $nextRate +=  $rateArray[$i];
+                $nextRate +=  $rateArray[$i] * 10;
             }
         }
+        return $findGroup;
     }

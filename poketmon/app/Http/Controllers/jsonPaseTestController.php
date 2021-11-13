@@ -61,30 +61,25 @@ class jsonPaseTestController extends Controller
         }
 
         foreach ($str as $poke) {
-//            $poke_group = [];
-//            echo $poke->name.' '.$poke->num.'<br>';
-//            echo '<br>';
-            //echo $poke->rare .' '. $poke->name.'<br>';
             array_push(${'rare_'.(int)$poke->rare},$poke->name);
         }
-//        for ($i = 0; $i < 8; $i++) {
-//            if (isset(${'rare_'.$i})) {
-//                var_dump(${'rare_'.$i});
-//                echo '<br><br>';
-//            }
-//        }
 
-        $rateArray = [0,1,4,8,15,19,23,30];
-        $valueArray = ['rare_0','rare_1','rare_2','rare_3',
-            'rare_4','rare_5','rare_6','rare_7'];
+        $groupArray = [
+            ['rate'=>0,'value'=>'rare_0'],
+            ['rate'=>0.5,'value'=>'rare_1'],
+            ['rate'=>3,'value'=>'rare_2'],
+            ['rate'=>5,'value'=>'rare_3'],
+            ['rate'=>8.5,'value'=>'rare_4'],
+            ['rate'=>13,'value'=>'rare_5'],
+            ['rate'=>25,'value'=>'rare_6'],
+            ['rate'=>45,'value'=>'rare_7'],
+        ];
 
-        $randomGroup = randomNum($rateArray,$valueArray);
+        $randomGroup = findRandomPoke($groupArray);
         $randomPokemon = ${$randomGroup}[mt_rand(0,count(${$randomGroup})-1)];
 
         echo $randomGroup.'<br>';
         echo $randomPokemon;
-
-
 
         $returnData = "";
         return view('jsonParseTest',['data'=>$returnData]);
