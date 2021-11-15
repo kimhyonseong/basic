@@ -89,7 +89,7 @@
             <img src="{{asset('image/poketball.png')}}" style="width: 52px;" alt="메인 이동">
             <div class="right">
                 <ul>
-                    <li>풀숲</li>
+                    <li><a href="/findPoke">풀숲</a></li>
                     <li class="on"><a href="/pokedex">사전</a></li>
                     <li>로그인</li>
                     <li>검색</li>

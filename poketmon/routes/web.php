@@ -1,5 +1,6 @@
 <?php
 
+    use App\Http\Controllers\findPokeController;
     use Illuminate\Support\Facades\Route;
     use App\Http\Controllers\pokedexController;
     use App\Http\Controllers\jsonPaseTestController;
@@ -24,4 +25,5 @@
     Route::get('/pokedex/{num}', [pokedexController::class, 'showDetail'])->name('pokedex');
     Route::get('/poketAjax/{page}', [pokedexController::class, 'showMore'])->name('poketAjax');
 
-    Route::get('/findPoke', [pokedexController::class, 'find'])->name('findPoke');
+    Route::get('/findPoke', [findPokeController::class, 'index'])->name('findPoke');
+    Route::get('/findPokeAjax', [findPokeController::class, 'find'])->name('findPoke');
