@@ -16,6 +16,7 @@ class findPokeController extends Controller
         $jsonUrl = asset('json/pokedex-korean.json');
         $jsonStr = file_get_contents($jsonUrl);
         $str = json_decode($jsonStr,false);
+        $findPoke = [];
 
         for ($i=0; $i<8; $i++) {
             ${'rare_'.$i} = [];
@@ -36,10 +37,29 @@ class findPokeController extends Controller
             ['rate'=>45,'value'=>'rare_7'],
         ];
 
-        $randomGroup = findRandomPoke($groupArray);
+        $randomGroup = randomRate($groupArray);
         $randomPokemonNum = ${$randomGroup}[mt_rand(0,count(${$randomGroup})-1)];
         $pokemonInfo = Poketmon::where('num',$randomPokemonNum)->get();
 
-        return response()->json(array('pokemon'=>$pokemonInfo));
+        foreach ($pokemonInfo as $resultPoke) {
+            // 삽입될 정보
+            $findPoke['num'] = $resultPoke['num'];
+            $findPoke['height'] = weight($resultPoke['height']);
+            $findPoke['weight'] = weight($resultPoke['weight']);
+
+            // 보여주기 용도
+            $findPoke['name'] = $resultPoke['name'];
+            $findPoke['type_num1'] = $resultPoke['type_num1'];
+
+            if ($resultPoke['type_num1'] > 0) {
+                $findPoke['type1_color'] = typeColor($resultPoke['type_num1']);
+            }
+
+            if ($resultPoke['type_num2'] > 0) {
+                $findPoke['type2_color'] = typeColor($resultPoke['type_num2']);
+            }
+        }
+
+        return response()->json(array('pokemon'=>$findPoke));
     }
 }

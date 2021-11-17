@@ -233,7 +233,7 @@
         return $findGroup;
     }
 
-    function findRandomPoke(array $array) {
+    function randomRate(array $array) {
         /*
          * ex) [ ['rate']=>0,['value']=>0.1 ] 2차 배열
          */
@@ -265,4 +265,20 @@
             }
         }
         return $findGroup;
+    }
+
+    function weight(float $weight_or_height) {
+        // 소수점 둘째자리까지
+        $randomWeight = [
+            ['rate'=>5,'value'=>mt_rand($weight_or_height*400,$weight_or_height*500)*(-1)],
+            ['rate'=>5,'value'=>mt_rand($weight_or_height*400,$weight_or_height*500)],
+            ['rate'=>10,'value'=>mt_rand($weight_or_height*300,$weight_or_height*400)*(-1)],
+            ['rate'=>10,'value'=>mt_rand($weight_or_height*300,$weight_or_height*400)],
+            ['rate'=>15,'value'=>mt_rand($weight_or_height*200,$weight_or_height*300)*(-1)],
+            ['rate'=>15,'value'=>mt_rand($weight_or_height*200,$weight_or_height*300)],
+            ['rate'=>20,'value'=>mt_rand(0,$weight_or_height*200)*(-1)],
+            ['rate'=>20,'value'=>mt_rand(0,$weight_or_height*200)]
+        ];
+
+        return sprintf('%.2f',$weight_or_height + (randomRate($randomWeight)/1000));
     }

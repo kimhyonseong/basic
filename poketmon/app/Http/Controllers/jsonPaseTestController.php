@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Poketmon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -61,7 +62,7 @@ class jsonPaseTestController extends Controller
         }
 
         foreach ($str as $poke) {
-            array_push(${'rare_'.(int)$poke->rare},$poke->name);
+            array_push(${'rare_'.(int)$poke->rare},$poke->num);
         }
 
         $groupArray = [
@@ -75,11 +76,34 @@ class jsonPaseTestController extends Controller
             ['rate'=>45,'value'=>'rare_7'],
         ];
 
-        $randomGroup = findRandomPoke($groupArray);
+        $randomGroup = randomRate($groupArray);
         $randomPokemon = ${$randomGroup}[mt_rand(0,count(${$randomGroup})-1)];
 
-        echo $randomGroup.'<br>';
-        echo $randomPokemon;
+        $randomGroup = randomRate($groupArray);
+        $randomPokemonNum = ${$randomGroup}[mt_rand(0,count(${$randomGroup})-1)];
+        $pokemonInfo = Poketmon::where('num',$randomPokemonNum)->get();
+
+        foreach ($pokemonInfo as $poke) {
+            echo $poke['num'].'<br>';
+            echo $poke['name'].'<br>';
+            echo 'origin_height : '.$poke['height'].'<br>';
+            echo 'origin_weight : '.$poke['weight'].'<br>';
+            echo 'random_height : '.weight($poke['height']).'<br>';
+            echo 'random_weight : '.weight($poke['weight']).'<br>';
+        }
+
+        for($i=0; $i<20; $i++) {
+            $pokemonInfo = Poketmon::where('num', $randomPokemonNum)->get();
+
+            foreach ($pokemonInfo as $poke) {
+                echo 'random_height : ' . weight($poke['height']).'<br>';
+                echo 'random_weight : ' . weight($poke['weight']).'<br>';
+            }
+        }
+        //echo $pokemonInfo[0];
+
+//        echo $randomGroup.'<br>';
+//        echo $randomPokemonNum;
 
         $returnData = "";
         return view('jsonParseTest',['data'=>$returnData]);

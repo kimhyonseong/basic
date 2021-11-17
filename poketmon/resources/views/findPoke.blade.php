@@ -39,6 +39,52 @@
     transform: translate(-50%,-50%);
     background-color: white;
     }
+    .curtain .info_box .info_box_inner{
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    }
+    .curtain .info_box .info_box_inner .menu {
+    width: 100%;
+    height: auto;
+    }
+    .curtain .info_box .info_box_inner .menu .close{
+    float: right;
+    border-radius: 30px;
+    width: 30px;
+    height: 30px;
+    background-color: #d3d3d3;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+    }
+    .curtain .info_box .info_box_inner .info {
+    width: 100%;
+    height: auto;
+    display: flex;
+    }
+    .curtain .info_box .info_box_inner .info .img_box,.text_box{
+    width: 50%;
+    height: auto;
+    box-sizing: border-box;
+    padding: 15px;
+    }
+    .curtain .info_box .info_box_inner .info .text_box{
+    padding-left: 40px;
+    }
+    .curtain .info_box .info_box_inner .info .img_box #img,.text{
+    width: 100%;
+    }
+    .curtain .info_box .info_box_inner .info .text_box .text .num{
+    color: #6b7280;
+    font-size: 25px;
+    }
+    .curtain .info_box .info_box_inner .info .text_box .text .name{
+    font-size: 40px;
+    }
 @endsection
 
 @section('content')
@@ -55,7 +101,26 @@
     </div>
     <div class="curtain">
         <div class="info_box">
-            <button class="close">닫기</button>
+            <div class="info_box_inner">
+                <div class="menu">
+                    <button class="close">X</button>
+                </div>
+                <div class="info">
+                    <div class="img_box">
+                        <img id="img" src="https://via.placeholder.com/250"
+                             onerror="this.src='https://via.placeholder.com/250'" alt="">
+                    </div>
+                    <div class="text_box">
+                        <div class="text">
+                            <h3><span class="num">No.000</span></h3>
+                            <h3><span class="name">이름</span></h3>
+                            <p class="type"></p>
+                            <p class="weight">0.0 kg</p>
+                            <p class="height">0.0 m</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 @endsection
@@ -76,8 +141,12 @@
             xml.onreadystatechange = function () {
                 if (this.status === 200 && this.readyState === this.DONE) {
                     let info = JSON.parse(xml.response);
+                    console.log(xml.response);
                     console.log(info);
-                    console.log(info.pokemon[0].name);
+                    console.log('name : '+info.pokemon.name);
+                    console.log('num : '+info.pokemon.name);
+                    console.log('height : '+info.pokemon.height);
+                    console.log('weight : '+info.pokemon.weight);
                 }
             }
             xml.open('GET','/findPokeAjax',true);
