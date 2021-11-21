@@ -16,6 +16,7 @@ class catchPoke extends Model
         'nickname',
         'height',
         'weight',
+        'gender',
         'favorites',
         'sort',
         'created_at',

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Poketmon;
+use App\Models\catchPoke;
 use Illuminate\Http\Request;
 
 class findPokeController extends Controller
@@ -44,21 +45,35 @@ class findPokeController extends Controller
         foreach ($pokemonInfo as $resultPoke) {
             // 삽입될 정보
             $findPoke['num'] = $resultPoke['num'];
+            $findPoke['gender'] = mt_rand(0,1);
             $findPoke['height'] = weight($resultPoke['height']);
             $findPoke['weight'] = weight($resultPoke['weight']);
 
             // 보여주기 용도
             $findPoke['name'] = $resultPoke['name'];
+            $findPoke['img'] = $resultPoke['img'];
             $findPoke['type_num1'] = $resultPoke['type_num1'];
+            $findPoke['type_num2'] = $resultPoke['type_num2'];
+            $findPoke['types'] = typeHtml($findPoke['type_num1']);
 
             if ($resultPoke['type_num1'] > 0) {
                 $findPoke['type1_color'] = typeColor($resultPoke['type_num1']);
             }
 
             if ($resultPoke['type_num2'] > 0) {
+                $findPoke['types'] .= typeHtml($findPoke['type_num2']);
                 $findPoke['type2_color'] = typeColor($resultPoke['type_num2']);
             }
         }
+
+        // 테스트
+        catchPoke::create([
+            'user_num' => 1,
+            'poke_num' => $findPoke['num'],
+            'height' => $findPoke['height'],
+            'weight' => $findPoke['weight'],
+            'gender' => $findPoke['gender'],
+        ]);
 
         return response()->json(array('pokemon'=>$findPoke));
     }

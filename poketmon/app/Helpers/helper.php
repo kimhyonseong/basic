@@ -145,7 +145,7 @@
     {
         switch (trim($number)) {
             case 1 :
-                $bgColor = '#4a5568';  //노말
+                $bgColor = '#92999f';  //노말
                 break;
             case 2 :
                 $bgColor = '#efa061';  //불꽃
@@ -154,7 +154,7 @@
                 $bgColor = '#608fcf';  //물
                 break;
             case 4 :
-                $bgColor = '#92999f';  //전기
+                $bgColor = '#ffeb3b';  //전기
                 break;
             case 5 :
                 $bgColor = '#7ab766';  //풀
@@ -267,7 +267,8 @@
         return $findGroup;
     }
 
-    function weight(float $weight_or_height) {
+    function weight(float $weight_or_height): string
+    {
         // 소수점 둘째자리까지
         $randomWeight = [
             ['rate'=>5,'value'=>mt_rand($weight_or_height*400,$weight_or_height*500)*(-1)],

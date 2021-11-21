@@ -20,7 +20,7 @@ class CreateCatchPokesTable extends Migration
             $table->integer('poke_num')
                 ->unsigned()->comment('포켓몬 번호');
             $table->string('nickname')->nullable()->comment('별명');
-            $table->string('gender')->nullable()->comment('성별');
+            $table->integer('gender')->nullable()->comment('0:남 1:여');
             $table->float('height')->comment('신장');
             $table->float('weight')->comment('몸무게');
             $table->integer('favorites')->default(0)

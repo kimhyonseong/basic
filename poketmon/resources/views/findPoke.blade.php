@@ -1,9 +1,13 @@
 @extends('layouts.frame')
 
 @section('css')
+    main {
+    display: flex;
+    justify-content: center;
+    }
     .forest {
     margin-top: 25px;
-    width: 100%;
+    width: 90%;
     display: flex;
     flex-direction: column;
     }
@@ -30,8 +34,9 @@
     }
     .curtain .info_box{
     position: absolute;
-    width: 70%;
-    height: 70%;
+    width: 720px;
+    /*width: 70%;*/
+    /*height: 70%;*/
     /*border: 1px blue solid;*/
     border-radius: 25px;
     top: 50%;
@@ -85,6 +90,17 @@
     .curtain .info_box .info_box_inner .info .text_box .text .name{
     font-size: 40px;
     }
+    .curtain .info_box .info_box_inner .info .text_box .text .types{
+    height: 30px;
+    }
+    .curtain .info_box .info_box_inner .info .text_box .text .types .type{
+    border-radius: 7px;
+    padding: 4px;
+    margin-right: 5px;
+    display: inline-block;
+    text-align: center;
+    min-width: 30px;
+    }
 @endsection
 
 @section('content')
@@ -114,7 +130,8 @@
                         <div class="text">
                             <h3><span class="num">No.000</span></h3>
                             <h3><span class="name">이름</span></h3>
-                            <p class="type"></p>
+                            <p class="types"></p>
+                            <p class="gender"></p>
                             <p class="weight">0.0 kg</p>
                             <p class="height">0.0 m</p>
                         </div>
@@ -129,10 +146,26 @@
     <script>
         let grass = document.getElementsByClassName('grass');
         let curtain = document.getElementsByClassName('curtain').item(0);
-        let close_bt = document.getElementsByClassName('close').item(0);
+
+        let info_box = document.getElementsByClassName('info_box').item(0);
+        let info_box_inner = info_box.getElementsByClassName('info_box_inner').item(0);
+        let close_bt = info_box_inner.querySelector('.close');
+        let info = info_box_inner.getElementsByClassName('info').item(0);
+        let poke_img = document.getElementById('img');
+
+        let text_box = info.getElementsByClassName('text_box').item(0);
+        let text = text_box.getElementsByClassName('text').item(0);
+        let num = text.querySelector('.num');
+        let name = text.querySelector('.name');
+        let types = text.getElementsByClassName('types').item(0);
+        let gender = text.getElementsByClassName('gender').item(0);
+        let weight = text.getElementsByClassName('weight').item(0);
+        let height = text.getElementsByClassName('height').item(0);
 
         function shakeGrass(element) {
-            element.src = element.src === 'http://localhost/image/green1.png'?'http://localhost/image/green2.png':'http://localhost/image/green1.png';
+            if (!element.classList.contains('found')) {
+                element.src = element.src === 'http://localhost/image/green1.png' ? 'http://localhost/image/green2.png' : 'http://localhost/image/green1.png';
+            }
         }
 
         function findPoke() {
@@ -141,12 +174,17 @@
             xml.onreadystatechange = function () {
                 if (this.status === 200 && this.readyState === this.DONE) {
                     let info = JSON.parse(xml.response);
-                    console.log(xml.response);
                     console.log(info);
-                    console.log('name : '+info.pokemon.name);
-                    console.log('num : '+info.pokemon.name);
-                    console.log('height : '+info.pokemon.height);
-                    console.log('weight : '+info.pokemon.weight);
+
+                    poke_img.src = info.pokemon.img;
+                    num.innerText = 'No.'+info.pokemon.num.toString().padStart(3,'0');
+                    name.innerText = info.pokemon.name;
+                    types.innerHTML = info.pokemon.types;
+                    gender.innerHTML = info.pokemon.gender.toString().localeCompare('0') === 0 ? '남 ♂' : '여 ♀';
+                    height.innerText = info.pokemon.height+'m';
+                    weight.innerText = info.pokemon.weight+'kg';
+
+                    curtain.style.display = 'block';
                 }
             }
             xml.open('GET','/findPokeAjax',true);
@@ -155,11 +193,13 @@
 
         window.addEventListener('DOMContentLoaded', function () {
             Array.from(grass).forEach(function (element) {
-                element.addEventListener('mouseover',() => shakeGrass(element));
-                element.addEventListener('mouseout',() => shakeGrass(element));
-                element.addEventListener('click',function () {
-                    curtain.style.display = 'block';
-                    findPoke();
+                element.addEventListener('mouseover', () => shakeGrass(element));
+                element.addEventListener('mouseout', () => shakeGrass(element));
+                element.addEventListener('click', function () {
+                    if (!this.classList.contains('found')) {
+                        findPoke();
+                        this.classList.add('found');
+                    }
                 });
             })
 
