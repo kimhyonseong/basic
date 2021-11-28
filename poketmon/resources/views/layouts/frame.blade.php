@@ -89,11 +89,25 @@
             <img src="{{asset('image/poketball.png')}}" style="width: 52px;" alt="메인 이동">
             <div class="right">
                 <ul>
-                    <li><a href="/findPoke">풀숲</a></li>
-                    <li class="on"><a href="/pokedex">사전</a></li>
-                    <li>로그인</li>
-                    <li>검색</li>
+                    @guest
+                        <li><a href="{{route('pokedex')}}">사전</a></li>
+                        <li><a href="{{route('login')}}">로그인</a></li>
+                    @else
+                        <li><a href="{{route('findPoke')}}">풀숲</a></li>
+                        <li><a href="{{route('pokedex')}}">도감</a></li>
+                        <li><a href="{{route('myPokedex')}}">발견도감</a></li>
+                        <li><a href="{{route('logout')}}"
+                            onclick="event.preventDefault();
+                            document.getElementById('logout-form').submit();
+                            ">로그아웃</a></li>
+                    @endguest
+                        <li>검색</li>
                 </ul>
+                @if(Auth::check())
+                    <form id="logout-form" action="{{route('logout')}}" method="POST">
+                        @csrf
+                    </form>
+                @endif
             </div>
         </div>
     </header>

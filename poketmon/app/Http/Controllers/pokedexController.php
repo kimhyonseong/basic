@@ -2,22 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\catchPoke;
 use App\Models\Poketmon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class pokedexController extends Controller
 {
     public function show() {
-//        $poketmons = Poketmon::where('num','<','5')->get();
-//        foreach ($poketmons as $list) {
-//            echo $list->name.'<br>';
-//        }
-        $returnData = "";
-        return view('pokedex',['data'=>$returnData]);
+        return view('pokedex');
     }
 
-    public function showMore(Request $request,$page) {
+    public function pokeList(Request $request,$page): \Illuminate\Http\JsonResponse
+    {
         $offset = 20;
 
         // 숫자인지 확인
@@ -151,5 +149,64 @@ class pokedexController extends Controller
                 'evolution' =>$evolution,
                 'pokeList' =>$pokeList,
             ]);
+    }
+
+    public function myPoke() {
+        return view('pokedex',['myPoke'=>'1']);
+    }
+
+    public function myPokeList(Request $request,$page): \Illuminate\Http\JsonResponse
+    {
+        $offset = 20;
+
+        // 숫자인지 확인
+        if (!is_numeric($page)) {
+            $page = 0;
+        }
+
+        $resultArray = [];
+        $myPoke = [];
+        $poketmons = Poketmon::all()->skip($offset * $page)->take($offset);
+        $catchPoke = catchPoke::where('user_num','=',Auth::id())->get()->groupBy('poke_num');
+
+        foreach ($catchPoke as $myPokeResult) {
+            array_push($myPoke,$myPokeResult[0]['poke_num']);
+        }
+
+        foreach ($poketmons as $result) {
+            if (!is_integer($result['num']) || $result['num'] < 1) {
+                continue;
+            }
+
+            if (in_array($result['num'],$myPoke)) {
+                $poket['name'] = $result['name'];
+                $poket['img'] = $result['img'];
+                $poket['link'] = '/pokedex/'.$result['num'];
+            } else {
+                $poket['name'] = '???';
+                $poket['img'] = 'https://via.placeholder.com/120';
+                $poket['link'] = 'javascript:void(0)';
+            }
+
+            $poket['num'] = 'No.'.sprintf('%03d',$result['num']);
+            $poket['html'] = '<li>
+                <a href="'.$poket['link'].'">
+                    <div class="li_wrap">
+                        <div class="img">
+                            <div class="thumb">
+                                <img src="'.$poket['img'].'" alt="'.$poket['name'].'">
+                            </div>
+                        </div>
+                        <div class="info">
+                            <div class="num">'.$poket['num'].'</div>
+                            <div class="name">'.$poket['name'].'</div>
+                        </div>
+                    </div>
+                </a>
+            </li>';
+            array_push($resultArray,$poket);
+        }
+
+        return response()->json(array('result'=>$resultArray));
     }
 }

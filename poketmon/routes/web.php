@@ -1,6 +1,7 @@
 <?php
 
     use App\Http\Controllers\findPokeController;
+    use Illuminate\Support\Facades\Auth;
     use Illuminate\Support\Facades\Route;
     use App\Http\Controllers\pokedexController;
     use App\Http\Controllers\jsonPaseTestController;
@@ -22,8 +23,14 @@
 
     Route::get('/jsonParse', [jsonPaseTestController::class, 'showRare'])->name('jsonParse');
     Route::get('/pokedex', [pokedexController::class, 'show'])->name('pokedex');
-    Route::get('/pokedex/{num}', [pokedexController::class, 'showDetail'])->name('pokedex');
-    Route::get('/poketAjax/{page}', [pokedexController::class, 'showMore'])->name('poketAjax');
+    Route::get('/myPokedex', [pokedexController::class, 'myPoke'])->name('myPokedex')->middleware('auth');
+    Route::get('/pokedex/{num}', [pokedexController::class, 'showDetail'])->name('pokedexPage');
+    Route::get('/poketAjax/{page}', [pokedexController::class, 'pokeList'])->name('poketAjax');
+    Route::get('/myPoketAjax/{page}', [pokedexController::class, 'myPokeList'])->name('myPoketAjax')->middleware('auth');
 
-    Route::get('/findPoke', [findPokeController::class, 'index'])->name('findPoke');
-    Route::get('/findPokeAjax', [findPokeController::class, 'find'])->name('findPoke');
+    Route::get('/findPoke', [findPokeController::class, 'index'])->name('findPoke')->middleware('auth');
+    Route::get('/findPokeAjax', [findPokeController::class, 'find'])->name('findPokeAjax')->middleware('auth');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Poketmon;
 use App\Models\catchPoke;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class findPokeController extends Controller
 {
@@ -66,14 +67,16 @@ class findPokeController extends Controller
             }
         }
 
-        // 테스트
-        catchPoke::create([
-            'user_num' => 1,
-            'poke_num' => $findPoke['num'],
-            'height' => $findPoke['height'],
-            'weight' => $findPoke['weight'],
-            'gender' => $findPoke['gender'],
-        ]);
+        // 잡은 포켓몬
+        if(Auth::check()) {
+            catchPoke::create([
+                'user_num' => Auth::id(),
+                'poke_num' => $findPoke['num'],
+                'height' => $findPoke['height'],
+                'weight' => $findPoke['weight'],
+                'gender' => $findPoke['gender'],
+            ]);
+        }
 
         return response()->json(array('pokemon'=>$findPoke));
     }

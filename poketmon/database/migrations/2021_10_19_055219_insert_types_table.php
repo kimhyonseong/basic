@@ -16,6 +16,8 @@ class InsertTypesTable extends Migration
     public function up()
     {
         Schema::table('types', function (Blueprint $table) {
+            DB::statement('SET FOREIGN_KEY_CHECKS=1');
+
             DB::table('types')->insert([
                 'type_num' =>  0,
                 'type_name' => '없음',
@@ -140,6 +142,7 @@ class InsertTypesTable extends Migration
     public function down()
     {
         Schema::table('types', function (Blueprint $table) {
+            DB::statement('SET FOREIGN_KEY_CHECKS=0');
             DB::table('types')->truncate();
         });
     }

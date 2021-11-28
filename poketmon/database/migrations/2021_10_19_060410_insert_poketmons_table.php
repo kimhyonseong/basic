@@ -21,6 +21,7 @@ class InsertPoketmonsTable extends Migration
 
             //$jsonUrl = 'https://raw.githubusercontent.com/intelcoder/PokemonGO-Pokedex-Korean/master/pokedex-korean.json';
             $jsonUrl = asset('json/pokedex-korean.json');
+            $jsonUrl = 'http://localhost/json/pokedex-korean.json';
             $jsonStr = file_get_contents($jsonUrl);
             $contents = json_decode($jsonStr,true);
             $cnt = count($contents);

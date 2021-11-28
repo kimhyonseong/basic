@@ -62,7 +62,6 @@
             // 스크롤시 함수 실행
             if (ajaxStop && (lastLiOffset < windowOffset)) {
                 page++;
-                console.log(page);
                 showPoketmon(page);
             }
         })
@@ -70,7 +69,12 @@
         function showPoketmon(page) {
             ajaxStop = false;
             let ajax = new XMLHttpRequest();
-            let url = "/poketAjax/" + page;
+            let url = '';
+            @if(isset($myPoke))
+            url = "/myPoketAjax/" + page;
+            @else
+            url = "/poketAjax/" + page;
+            @endif
             let ul = document.getElementById("poketmonList");
             let html = ``;
 

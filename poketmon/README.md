@@ -29,4 +29,11 @@ ajax 구현 완료
 포켓몬 찾기(풀숲 진행 중)
 
 2021.11.19  
-발견 포켓몬 테이블 생성
+발견 포켓몬 테이블 생성  
+
+2021.11.26  
+composer require laravel/ui  
+php artisan ui react --auth  
+npm install  
+npm run dev  
+->  Laravel Mix v6.0.39  
