@@ -33,8 +33,14 @@ public class YoilTeller {
 		response.setContentType("text/html");
 		response.setCharacterEncoding("utf8");
 		PrintWriter out = response.getWriter();
+		out.println("<html>");
+		out.println("<head>");
+		out.println("</head>");
+		out.println("<body>");
 		out.println(year + "년 "+month+"월 "+day+"일은 ");
 		out.println(yoil+"요일입니다.");
+		out.println("</body>");
+		out.println("</html>");
 	}
 
 }
