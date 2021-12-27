@@ -6,10 +6,7 @@
 	<title>Home</title>
 </head>
 <body>
-<h1>
-	Hello world!  
-</h1>
-
-<P>${year}년 ${month}월 ${day}일 ${yoil}요일 입니다.</P>
+year=<%=request.getParameter("year") %>
+<P>${myDate.year}년 ${myDate.month}월 ${myDate.day}일 ${yoil}요일 입니다.</P>
 </body>
 </html>
