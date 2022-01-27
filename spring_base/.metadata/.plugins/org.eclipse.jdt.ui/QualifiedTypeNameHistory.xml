@@ -6,4 +6,5 @@
     <fullyQualifiedTypeName name="org.apache.catalina.util.URLEncoder"/>
     <fullyQualifiedTypeName name="java.net.URLEncoder"/>
     <fullyQualifiedTypeName name="javax.servlet.http.Cookie"/>
+    <fullyQualifiedTypeName name="java.net.http.HttpRequest"/>
 </qualifiedTypeNameHistroy>

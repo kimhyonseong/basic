@@ -4,7 +4,9 @@ package com.khs.ch2;
 import java.net.URLEncoder;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,8 +21,15 @@ public class LoginController {
 		return "loginForm";
 	}
 	
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "redirect:/";
+	}
+	
 	@PostMapping("/login")
-	public String login(String id, String pwd, boolean rememberId, HttpServletResponse response) throws Exception {
+	public String login(String id, String pwd, boolean rememberId, 
+			HttpServletRequest request,HttpServletResponse response) throws Exception {
 		// 1. id와 pwd 확인
 		if(!loginCheck(id,pwd)) {
 			// 2-1. 일치하지 않으면 loginForm으로 이동
@@ -28,7 +37,12 @@ public class LoginController {
 			
 			return "redirect:/login/login?msg="+msg;
 		}
-		// 2-2. 일치 시, 홈으로 이동
+		// 2-2. 일치 시, 
+		// 세션 저장
+		HttpSession session = request.getSession();
+		session.setAttribute("id",id);
+		
+		
 		if(rememberId) {
 			Cookie cookie = new Cookie("id",id);
 			response.addCookie(cookie);	
