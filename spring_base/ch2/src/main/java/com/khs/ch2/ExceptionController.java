@@ -2,10 +2,12 @@ package com.khs.ch2;
 
 import java.io.FileNotFoundException;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Controller
 public class ExceptionController {
@@ -17,9 +19,10 @@ public class ExceptionController {
 		return "error";
 	}
 	
+	@ResponseStatus(HttpStatus.NOT_FOUND)
 	@ExceptionHandler({NullPointerException.class, FileNotFoundException.class})
 	public String catcher2(Exception ex,Model m) {
-		m.addAttribute("ex",ex);
+		//ex.addAttribute("ex",ex);
 		return "error";
 	}
 	
