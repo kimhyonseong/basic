@@ -13,6 +13,7 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Date;
 
 import static org.junit.Assert.*;
@@ -148,6 +149,41 @@ public class DBConnectionTest2Test {
         int rowCount = pstmt.executeUpdate();  // insert, delete, update
 
         return rowCount;
+    }
+
+    @Test
+    public void transactionTest() throws Exception{
+        Connection conn = null;
+
+        try {
+            deleteAll();
+            conn = ds.getConnection();
+            conn.setAutoCommit(false);
+
+//        insert into user_info (id, pwd, email, birth, sns, reg_date)
+//        values ('qaze','1111','kkq@kkw.com','2020-10-10','fb',now());
+
+            String sql = "insert into user_info values (?,?,?,?,?,?,now())";
+
+            PreparedStatement pstmt = conn.prepareStatement(sql);  // sql 공격, 성능향상
+            pstmt.setString(1,"qwera");
+            pstmt.setString(2,"1234");
+            pstmt.setString(3,"kmmd");
+            pstmt.setString(4,"asd@mnv.com");
+            pstmt.setDate(5,new java.sql.Date(new Date().getTime()));
+            pstmt.setString(6,"fb");
+
+            int rowCount = pstmt.executeUpdate();  // insert, delete, update
+
+            pstmt.setString(1,"qwera2");
+            rowCount = pstmt.executeUpdate();
+
+            conn.commit();
+
+        } catch (Exception e) {
+            conn.rollback();
+            e.printStackTrace();
+        }
     }
 
     @Test
