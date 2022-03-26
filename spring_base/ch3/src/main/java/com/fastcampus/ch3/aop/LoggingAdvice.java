@@ -11,12 +11,12 @@ import java.util.Arrays;
 @Aspect
 public class LoggingAdvice {
     @Around("execution(* com.fastcampus.ch3.aop.MyMath.*(..))")  //pointcut - 부가기능이 적용될 패턴
-//    @Around("execution(* com.fastcampus.ch3.aop.MyMath.*(..))")  //pointcut - 부가기능이 적용될 패턴
+    //@Before(value = "execution(* com.fastcampus.ch3.aop.MyMath.*(..))")  //pointcut - 부가기능이 적용될 패턴
     public Object methodCallLog(ProceedingJoinPoint pjp) throws Throwable {
         long start = System.currentTimeMillis();
         System.out.println("<<[start] "+pjp.getSignature().getName()+ Arrays.toString(pjp.getArgs()));
 
-        //타겟의 메서드가 넘어와서 호출
+        //타겟의 메서드 호출
         Object result = pjp.proceed();
 
         System.out.println("result = " + result);

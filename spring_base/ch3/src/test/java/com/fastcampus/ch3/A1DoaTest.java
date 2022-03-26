@@ -25,14 +25,17 @@ public class A1DoaTest {
     @Autowired
     DataSource ds;
 
+    @Autowired
+    DataSourceTransactionManager tm;
+
     @Test
     public void insertTest() throws Exception {
-        PlatformTransactionManager tm = new DataSourceTransactionManager(ds);
+        //PlatformTransactionManager tm = new DataSourceTransactionManager(ds);
         TransactionStatus status = tm.getTransaction(new DefaultTransactionDefinition());
         try {
             a1Doa.delteAll();
             a1Doa.insert(1,100);
-            a1Doa.insert(1,200);
+            a1Doa.insert(2,200);
             tm.commit(status);
         } catch (Exception e){
             e.printStackTrace();
