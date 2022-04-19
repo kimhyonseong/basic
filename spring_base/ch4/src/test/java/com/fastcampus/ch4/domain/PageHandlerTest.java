@@ -8,21 +8,24 @@ public class PageHandlerTest {
     @Test
     public void test(){
         PageHandler ph = new PageHandler(250, 1);
-        assertTrue(ph.beginPage == 1);
-        assertTrue(ph.endPage==10);
+        System.out.println("ph = " + ph);
+        assertTrue(ph.getBeginPage() == 1);
+        assertTrue(ph.getEndPage()==10);
     }
 
     @Test
     public void test2(){
         PageHandler ph = new PageHandler(250, 11);
-        assertTrue(ph.beginPage == 11);
-        assertTrue(ph.endPage==20);
+        System.out.println("ph = " + ph);
+        assertTrue(ph.getBeginPage() == 11);
+        assertTrue(ph.getEndPage()==20);
     }
 
     @Test
     public void test3(){
         PageHandler ph = new PageHandler(255, 25);
-        assertTrue(ph.beginPage == 21);
-        assertTrue(ph.endPage==26);
+        System.out.println("ph = " + ph);
+        assertTrue(ph.getBeginPage() == 21);
+        assertTrue(ph.getEndPage()==26);
     }
 }

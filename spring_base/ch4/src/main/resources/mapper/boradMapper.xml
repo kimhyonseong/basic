@@ -8,4 +8,46 @@
         from board
         where bno = #{bno};
     </select>
+
+    <select id="count" resultType="int">
+        select count(*) from board
+    </select>
+    
+    <insert id="insert" parameterType="BoardDto">
+        insert into board (title,content, writer)
+        values (#{title},#{content},#{writer})
+    </insert>
+    
+    <update id="update" parameterType="BoardDto">
+        update board set title = #{title},
+                         content = #{content},
+                         up_date = now()
+                    where bno=#{bno}
+    </update>
+
+    <delete id="delete">
+        delete from board where bno = #{bno} and writer = #{writer}
+    </delete>
+
+    <select id="selectAll" resultType="BoardDto">
+        select bno, title, content, writer, view_cnt, comment_cnt, reg_date
+        from board
+        order by reg_date desc, bno desc
+    </select>
+
+    <select id="selectPage" parameterType="map" resultType="BoardDto">
+        select bno, title, content, writer, view_cnt, comment_cnt, reg_date
+        from board
+        order by reg_date desc, bno desc
+        limit #{offset}, #{pageSize}
+    </select>
+
+    <update id="increaseViewCnt" parameterType="int">
+        update board set view_cnt = view_cnt+1
+        where bno = #{bno}
+    </update>
+
+    <delete id="deleteAll">
+        delete from board
+    </delete>
 </mapper>
