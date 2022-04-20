@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -20,6 +22,45 @@ import java.util.Map;
 public class BoardController {
     @Autowired
     BoardService boardService;
+
+    @PostMapping("/remove")
+    public String remove(Integer bno, Integer page, Integer pageSize, Model m, HttpSession session, RedirectAttributes rattr) {
+        //RedirectAttributes에 저장하면 메시지 한번만 나오게 됨
+        String writer = (String) session.getAttribute("id");
+        try {
+            int rowCnt = boardService.remove(bno,writer);
+
+            // redirect 할때 자동으로 파라미터로 붙음
+            m.addAttribute("page",page);
+            m.addAttribute("pageSize",pageSize);
+
+            if (rowCnt != 1)
+                throw new Exception("board remove error");
+
+            //addFlashAttribute 한버 사용후 없어짐
+            rattr.addFlashAttribute("msg","DEL_OK");
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            rattr.addFlashAttribute("msg","DEL_ERROR");
+        }
+
+        return "redirect:/board/list";
+    }
+
+    @GetMapping("/read")
+    public String read(Integer bno, Integer page, Integer pageSize,Model m) {
+        try {
+            BoardDto boardDto = boardService.read(bno);
+//            m.addAttribute("boardDto",boardDto);
+            m.addAttribute(boardDto);
+            m.addAttribute("page",page);
+            m.addAttribute("pageSize",pageSize);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+
+        return "/board";
+    }
 
     @GetMapping("/list")
     public String list(Integer page, Integer pageSize, Model m, HttpServletRequest request) {
@@ -41,6 +82,8 @@ public class BoardController {
             List<BoardDto> list = boardService.getPage(map);
             m.addAttribute("list",list);
             m.addAttribute("ph",pageHandler);
+            m.addAttribute("page",page);
+            m.addAttribute("pageSize",pageSize);
         } catch (Exception exception) {
             exception.printStackTrace();
         }
