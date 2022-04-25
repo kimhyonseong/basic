@@ -21,10 +21,11 @@
 </div>
 <script>
     let msg = "${msg}";
-    if (mse == "DEL_OK") alert("삭제 되었습니다.");
-    if (mse == "DEL_ERROR") alert("삭제 실패");
+    if (msg == "DEL_OK") alert("삭제 되었습니다.");
+    if (msg == "DEL_ERROR") alert("삭제 실패");
 </script>
 <div style="text-align:center">
+    <button type="button" id="writeBtn" onclick="loction.href='<c:url value="/board/write"/> '"></button>
     <table border="1">
         <tr>
             <th>번호</th>

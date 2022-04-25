@@ -23,6 +23,58 @@ public class BoardController {
     @Autowired
     BoardService boardService;
 
+    @GetMapping("/write")
+    public String write(Model m){
+        m.addAttribute("mode","new");
+        return "board";
+    }
+
+    @PostMapping("/write")
+    public String write(BoardDto boardDto,Model m,HttpSession session,RedirectAttributes ratt){
+        String writer = (String)session.getAttribute("id");
+        boardDto.setWriter(writer);
+
+        try {
+            int rowCnt = boardService.write(boardDto);
+
+            if (rowCnt != 1) {
+                throw new Exception("write fail");
+            }
+
+            // 세션을 이용한 일회성 저장
+            ratt.addFlashAttribute("msg","WRT_OK");
+            return "redirect:/board/list";
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            m.addAttribute(boardDto);
+            ratt.addFlashAttribute("msg","WRT_ERR");
+            return "board";
+        }
+    }
+
+    @PostMapping("/modify")
+    public String modify(BoardDto boardDto,Model m,HttpSession session,RedirectAttributes ratt){
+        String writer = (String)session.getAttribute("id");
+        boardDto.setWriter(writer);
+
+        try {
+            int rowCnt = boardService.modify(boardDto);
+
+            if (rowCnt != 1) {
+                throw new Exception("modify fail");
+            }
+
+            // 세션을 이용한 일회성 저장
+            ratt.addFlashAttribute("msg","MOD_OK");
+            return "redirect:/board/list";
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            m.addAttribute(boardDto);
+            ratt.addFlashAttribute("msg","MOD_ERR");
+            return "board";
+        }
+    }
+
     @PostMapping("/remove")
     public String remove(Integer bno, Integer page, Integer pageSize, Model m, HttpSession session, RedirectAttributes rattr) {
         //RedirectAttributes에 저장하면 메시지 한번만 나오게 됨
@@ -37,7 +89,7 @@ public class BoardController {
             if (rowCnt != 1)
                 throw new Exception("board remove error");
 
-            //addFlashAttribute 한버 사용후 없어짐
+            //addFlashAttribute 한번 사용후 없어짐
             rattr.addFlashAttribute("msg","DEL_OK");
         } catch (Exception exception) {
             exception.printStackTrace();

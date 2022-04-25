@@ -22,7 +22,7 @@
         update board set title = #{title},
                          content = #{content},
                          up_date = now()
-                    where bno=#{bno}
+                    where bno=#{bno} and writer = #{writer}
     </update>
 
     <delete id="delete">
