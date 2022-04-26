@@ -59,11 +59,9 @@
             limit #{offset}, #{pageSize}
     </select>
 
-    <select id="searchResultCnt" parameterType="SearchCondition" resultType="BoardDto">
+    <select id="searchResultCnt" parameterType="SearchCondition" resultType="int">
         select count(*)
         from board
         where title like concat('%', #{keyword},'%')
-        order by reg_date desc, bno desc
-            limit #{offset}, #{pageSize}
     </select>
 </mapper>
