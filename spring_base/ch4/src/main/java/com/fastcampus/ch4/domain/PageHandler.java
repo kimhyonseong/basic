@@ -1,15 +1,29 @@
 package com.fastcampus.ch4.domain;
 
+import org.springframework.web.util.UriComponentsBuilder;
+
 public class PageHandler {
+//    private int page;      // 현재 페이지
+//    private int pageSize;  // 한 페이지 크기
+//    private String option;
+//    private String keyword;
+    private SearchCondition sc;
+
     private int totalCnt;  // 총 게시물 수
-    private int pageSize;  // 한 페이지 크기
     private int naviSize = 10;  // 네비게이션 크기
     private int totalPage; // 전체 페이지 갯수
-    private int page;      // 현재 페이지
     private int beginPage; // 네비게이션 시작 페이지
     private int endPage;   // 네비게이션 끝 페이지
     private boolean showPrev;  // 이전 페이지로 이동하는 링크를 보여줄 것인지 여부
     private boolean showNext;  // 다음 페이지로 이동하는 링크를 보여줄 것인지 여부
+
+    public SearchCondition getSc() {
+        return sc;
+    }
+
+    public void setSc(SearchCondition sc) {
+        this.sc = sc;
+    }
 
     public int getTotalCnt() {
         return totalCnt;
@@ -17,14 +31,6 @@ public class PageHandler {
 
     public void setTotalCnt(int totalCnt) {
         this.totalCnt = totalCnt;
-    }
-
-    public int getPageSize() {
-        return pageSize;
-    }
-
-    public void setPageSize(int pageSize) {
-        this.pageSize = pageSize;
     }
 
     public int getNaviSize() {
@@ -41,14 +47,6 @@ public class PageHandler {
 
     public void setTotalPage(int totalPage) {
         this.totalPage = totalPage;
-    }
-
-    public int getPage() {
-        return page;
-    }
-
-    public void setPage(int page) {
-        this.page = page;
     }
 
     public int getBeginPage() {
@@ -83,23 +81,25 @@ public class PageHandler {
         this.showNext = showNext;
     }
 
-    public PageHandler(int totalCnt, int page) {
-        this(totalCnt, page, 10);
-    }
-    public PageHandler(int totalCnt, int page, int pageSize){
-        this.totalCnt = totalCnt;
-        this.page = page;
-        this.pageSize = pageSize;
+    public PageHandler(int totalCnt, SearchCondition sc) {
+        this.totalPage = totalCnt;
+        this.sc = sc;
 
-        totalPage = (int)Math.ceil(totalCnt / (double)pageSize);
-        beginPage = (page - 1) / naviSize * naviSize + 1;
+        doPaging(totalCnt, sc);
+    }
+
+    public void doPaging(int totalCnt, SearchCondition sc){
+        this.totalCnt = totalCnt;
+
+        totalPage = (int)Math.ceil(totalCnt / (double)sc.getPageSize());
+        beginPage = (sc.getPage() - 1) / naviSize * naviSize + 1;
         endPage = Math.min(beginPage + naviSize - 1,totalPage);
         showPrev = beginPage != 1;
         showNext = endPage != totalPage;
     }
 
     void print() {
-        System.out.println("page = " + page);
+        System.out.println("page = " + sc.getPage());
         System.out.println(showPrev ? "[PREV] " : "");
 
         for (int i = beginPage; i<= endPage; i++) {
@@ -112,11 +112,10 @@ public class PageHandler {
     @Override
     public String toString() {
         return "PageHandler{" +
-                "totalCnt=" + totalCnt +
-                ", pageSize=" + pageSize +
+                "sc=" + sc +
+                ", totalCnt=" + totalCnt +
                 ", naviSize=" + naviSize +
                 ", totalPage=" + totalPage +
-                ", page=" + page +
                 ", beginPage=" + beginPage +
                 ", endPage=" + endPage +
                 ", showPrev=" + showPrev +
