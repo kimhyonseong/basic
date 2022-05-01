@@ -38,6 +38,8 @@ public interface BoardDao {
 
     List<BoardDto> searchSelectPage(SearchCondition sc) throws Exception;
 
+    int updateCommentCnt(Integer bno, int cnt);
+
 //    int searchResultCnt(SearchCondition sc) throws Exception // T selectOne(String statement, Object parameter)
 //    ;
 //
