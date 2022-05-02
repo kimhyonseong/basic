@@ -19,8 +19,10 @@ public class CommentController {
     CommentService service;
 
     @PatchMapping("/comments/{cno}")
-    public ResponseEntity<String> modify(@PathVariable Integer cno, @RequestBody CommentDto dto) {
+    public ResponseEntity<String> modify(@PathVariable Integer cno, @RequestBody CommentDto dto,HttpStatus session) {
         //String commenter = (String) session.getAttribute("id");
+        String commenter = "qwer";
+        dto.setCommenter(commenter);
         dto.setCno(cno);
 
         System.out.println("dto = " + dto);
@@ -81,6 +83,7 @@ public class CommentController {
         List<CommentDto> list = null;
         try {
             list = service.getList(bno);
+            System.out.println("list = " + list);
             return new ResponseEntity<List<CommentDto>>(list, HttpStatus.OK);
         } catch (Exception exception) {
             exception.printStackTrace();
